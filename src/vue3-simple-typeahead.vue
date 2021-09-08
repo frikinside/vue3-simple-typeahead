@@ -1,0 +1,154 @@
+<template>
+	<div class="simple-typeahead">
+		<input
+			:id="inputId"
+			type="text"
+			:placeholder="placeholder"
+			v-model="input"
+			@input="onInput"
+			@focus="onFocus"
+			@blur="onBlur"
+			@keydown.down.prevent="onArrowDown"
+			@keydown.up.prevent="onArrowUp"
+			@keydown.enter.tab.prevent="selectCurrentSelection"
+		/>
+		<div v-if="isListVisible" class="simple-typeahead-list">
+			<div
+				class="simple-typeahead-list-item"
+				:class="{ 'simple-typeahead-list-item-active': currentSelectionIndex == index }"
+				v-for="(item, index) in filteredItems"
+				:key="index"
+				@mousedown.prevent
+				@click="selectItem(item)"
+				@mouseenter="currentSelectionIndex = index"
+			>
+				<span class="simple-typeahead-list-item-text" :data-text="item" v-html="boldMatchText(item)"></span>
+			</div>
+		</div>
+	</div>
+</template>
+
+<script>
+import { defineComponent } from 'vue';
+
+export default /*#__PURE__*/ defineComponent({
+	name: 'Vue3SimpleTypeahead',
+	emits: ['onInput', 'onFocus', 'onBlur', 'selectItem'],
+	props: {
+		id: {
+			type: String,
+		},
+		placeholder: {
+			type: String,
+			default: '',
+		},
+		items: {
+			type: Array,
+			required: true,
+		},
+	},
+	created() {},
+	data() {
+		return {
+			inputId: this.id || (Math.random() * 1000).toFixed(),
+			input: '',
+			isInputFocused: false,
+			currentSelectionIndex: 0,
+		};
+	},
+	methods: {
+		onInput() {
+			if (this.isListVisible && this.currentSelectionIndex >= this.filteredItems.length) {
+				this.currentSelectionIndex = (this.filteredItems.length || 1) - 1;
+			}
+			this.$emit('onInput', this.input);
+		},
+		onFocus() {
+			this.isInputFocused = true;
+			this.$emit('onFocus', this.input);
+		},
+		onBlur() {
+			this.isInputFocused = false;
+			this.$emit('onBlur', this.input);
+		},
+		onArrowDown() {
+			if (this.isListVisible && this.currentSelectionIndex < this.filteredItems.length - 1) {
+				this.currentSelectionIndex++;
+			}
+		},
+		onArrowUp() {
+			if (this.isListVisible && this.currentSelectionIndex > 0) {
+				this.currentSelectionIndex--;
+			}
+		},
+		selectCurrentSelection() {
+			if (this.currentSelection) {
+				this.selectItem(this.currentSelection);
+			}
+		},
+		selectItem(item) {
+			this.input = item;
+			this.currentSelectionIndex = 0;
+			document.getElementById(this.inputId).blur();
+			this.$emit('selectItem', item);
+		},
+		escapeRegExp(string) {
+			return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+		},
+		boldMatchText(text) {
+			const regexp = new RegExp(`(${this.escapeRegExp(this.input)})`, 'ig');
+			return text.replace(regexp, '<strong>$1</strong>');
+		},
+	},
+	computed: {
+		searchableItems() {
+			return this.items;
+		},
+		filteredItems() {
+			const regexp = new RegExp(this.escapeRegExp(this.input), 'i');
+
+			return this.searchableItems.filter((item) => item.match(regexp));
+		},
+		isListVisible() {
+			return this.isInputFocused && this.input.length > 1 && this.filteredItems.length;
+		},
+		currentSelection() {
+			return this.isListVisible && this.currentSelectionIndex < this.filteredItems.length ? this.filteredItems[this.currentSelectionIndex] : undefined;
+		},
+	},
+});
+</script>
+
+<style scoped>
+.simple-typeahead {
+	position: relative;
+	width: 100%;
+}
+.simple-typeahead > input {
+	margin-bottom: 0;
+}
+.simple-typeahead .simple-typeahead-list {
+	position: absolute;
+	width: 100%;
+	border: none;
+	max-height: 400px;
+	overflow-y: auto;
+	border-bottom: 0.1rem solid #d1d1d1;
+}
+.simple-typeahead .simple-typeahead-list .simple-typeahead-list-item {
+	cursor: pointer;
+	background-color: #fafafa;
+	padding: 0.6rem 1rem;
+	border-bottom: 0.1rem solid #d1d1d1;
+	border-left: 0.1rem solid #d1d1d1;
+	border-right: 0.1rem solid #d1d1d1;
+}
+
+.simple-typeahead .simple-typeahead-list .simple-typeahead-list-item:last-child {
+	border-bottom: none;
+}
+
+.simple-typeahead .simple-typeahead-list .simple-typeahead-list-item.simple-typeahead-list-item-active {
+	background-color: #e1e1e1;
+}
+</style>
