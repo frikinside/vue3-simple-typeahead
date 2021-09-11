@@ -13,6 +13,20 @@
     "url" : "https://github.com/frikinside/vue3-simple-typeahead/issues",
     "email" : "friki.inside@gmail.com"
   },
+  "keywords": [
+    "autocomplete",
+    "autosuggest",
+    "typeahead",
+    "select",
+    "search",
+    "accessibility",
+    "a11y",
+    "WAI-ARIA",
+    "vue",
+    "vue3",
+    "vue3js",
+    "vuejs3"
+  ],
   "main": "dist/vue3-simple-typeahead.ssr.js",
   "browser": "dist/vue3-simple-typeahead.esm.js",
   "module": "dist/vue3-simple-typeahead.esm.js",

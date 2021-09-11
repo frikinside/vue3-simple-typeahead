@@ -63,27 +63,31 @@ Then, use the component in your app.
 	id="typeahead_id"
 	placeholder="Start writing..."
 	:items="['One','Two','Three',...]"
+	:minInputLength="1"
 	@selectItem="selectItemEventHandler"
 	@onInput="onInputEventHandler"
-	@onFocus="onInputEventHandler"
-	@onBlur="onInputEventHandler"
+	@onFocus="onFocusEventHandler"
+	@onBlur="onBlurEventHandler"
 >
 </vue3-simple-typeahead>
 ```
 
 ### Props
 
-| Prop                          | Type             | Default              | Description                                                               |
-| :---------------------------- | :--------------- | :------------------- | :------------------------------------------------------------------------ |
-| [`id`](#id)                   | String           | Random id generation | The id for the input control. Can be useful to link with a `label for=""` |
-| [`placeholder`](#placeholder) | String           | `''`                 | Placeholder text for the input                                            |
-| [`items`](#items)             | Array (Required) |                      | List of strings with the elements for suggestions                         |
+| Prop                                | Type             | Default              | Description                                                                             |
+| :---------------------------------- | :--------------- | :------------------- | :-------------------------------------------------------------------------------------- |
+| [`id`](#id)                         | String           | Random id generation | The id for the input control. Can be useful to link with a `label for=""`               |
+| [`placeholder`](#placeholder)       | String           | `''`                 | Placeholder text for the input                                                          |
+| [`items`](#items)                   | Array (Required) |                      | List of strings with the elements for suggestions                                       |
+| [`minInputLength`](#minInputLength) | Number           | 2                    | Minimum input length for the suggestion length to appear, the prop value has to be >= 0 |
+
+_Remember you can always use lower-kebap-case for camelCase props like `min-input-length`_
 
 ### Events
 
-| Event                       | Signature                        | Description                                                                                         |
-| :-------------------------- | :------------------------------- | :-------------------------------------------------------------------------------------------------- |
-| [`selectItem`](#selectItem) | `function (item: String): void`  | Emitted when the user selects an item from the suggestion list                                      |
-| [`onInput`](#onInput)       | `function (input: String): void` | Emitted when the user types anything                                                                |
-| [`onFocus`](#onFocus)       | `function (input: String): void` | Emitted when the input control get the focus                                                        |
-| [`onBlur`](#onBlur)         | `function (input: String): void` | Emitted when the input control lost the focus [When the user select an item, the focus is lost too] |
+| Event                       | Signature                                                        | Description                                                                                         |
+| :-------------------------- | :--------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------- |
+| [`selectItem`](#selectItem) | `function (item: String): void`                                  | Emitted when the user selects an item from the suggestion list                                      |
+| [`onInput`](#onInput)       | `function (event: Object { input: String, items: Array }): void` | Emitted when the user types anything                                                                |
+| [`onFocus`](#onFocus)       | `function (event: Object { input: String, items: Array }): void` | Emitted when the input control get the focus                                                        |
+| [`onBlur`](#onBlur)         | `function (event: Object { input: String, items: Array }): void` | Emitted when the input control lost the focus [When the user select an item, the focus is lost too] |

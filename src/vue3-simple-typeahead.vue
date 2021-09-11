@@ -1,5 +1,5 @@
 <template>
-	<div class="simple-typeahead">
+	<div :id="wrapperId" class="simple-typeahead">
 		<input
 			:id="inputId"
 			type="text"
@@ -46,11 +46,18 @@ export default /*#__PURE__*/ defineComponent({
 			type: Array,
 			required: true,
 		},
+		minInputLength: {
+			type: Number,
+			default: 2,
+			validator: (prop) => {
+				return prop >= 0;
+			},
+		},
 	},
 	created() {},
 	data() {
 		return {
-			inputId: this.id || (Math.random() * 1000).toFixed(),
+			inputId: this.id || `simple_typeahead_${(Math.random() * 1000).toFixed()}`,
 			input: '',
 			isInputFocused: false,
 			currentSelectionIndex: 0,
@@ -61,25 +68,44 @@ export default /*#__PURE__*/ defineComponent({
 			if (this.isListVisible && this.currentSelectionIndex >= this.filteredItems.length) {
 				this.currentSelectionIndex = (this.filteredItems.length || 1) - 1;
 			}
-			this.$emit('onInput', this.input);
+			this.$emit('onInput', { input: this.input, items: this.filteredItems });
 		},
 		onFocus() {
 			this.isInputFocused = true;
-			this.$emit('onFocus', this.input);
+			this.$emit('onFocus', { input: this.input, items: this.filteredItems });
 		},
 		onBlur() {
 			this.isInputFocused = false;
-			this.$emit('onBlur', this.input);
+			this.$emit('onBlur', { input: this.input, items: this.filteredItems });
 		},
-		onArrowDown() {
+		onArrowDown($event) {
 			if (this.isListVisible && this.currentSelectionIndex < this.filteredItems.length - 1) {
 				this.currentSelectionIndex++;
 			}
+			this.scrollSelectionIntoView();
 		},
-		onArrowUp() {
+		onArrowUp($event) {
 			if (this.isListVisible && this.currentSelectionIndex > 0) {
 				this.currentSelectionIndex--;
 			}
+			this.scrollSelectionIntoView();
+		},
+		scrollSelectionIntoView() {
+			setTimeout(() => {
+				const list_node = document.querySelector(`#${this.wrapperId} .simple-typeahead-list`);
+				const active_node = document.querySelector(`#${this.wrapperId} .simple-typeahead-list-item.simple-typeahead-list-item-active`);
+
+				if (!(active_node.offsetTop >= list_node.scrollTop && active_node.offsetTop + active_node.offsetHeight < list_node.scrollTop + list_node.offsetHeight)) {
+					let scroll_to = 0;
+					if (active_node.offsetTop > list_node.scrollTop) {
+						scroll_to = active_node.offsetTop + active_node.offsetHeight - list_node.offsetHeight;
+					} else if (active_node.offsetTop < list_node.scrollTop) {
+						scroll_to = active_node.offsetTop;
+					}
+
+					list_node.scrollTo(0, scroll_to);
+				}
+			});
 		},
 		selectCurrentSelection() {
 			if (this.currentSelection) {
@@ -101,6 +127,9 @@ export default /*#__PURE__*/ defineComponent({
 		},
 	},
 	computed: {
+		wrapperId() {
+			return `${this.inputId}_wrapper`;
+		},
 		searchableItems() {
 			return this.items;
 		},
@@ -110,7 +139,7 @@ export default /*#__PURE__*/ defineComponent({
 			return this.searchableItems.filter((item) => item.match(regexp));
 		},
 		isListVisible() {
-			return this.isInputFocused && this.input.length > 1 && this.filteredItems.length;
+			return this.isInputFocused && this.input.length >= this.minInputLength && this.filteredItems.length;
 		},
 		currentSelection() {
 			return this.isListVisible && this.currentSelectionIndex < this.filteredItems.length ? this.filteredItems[this.currentSelectionIndex] : undefined;
