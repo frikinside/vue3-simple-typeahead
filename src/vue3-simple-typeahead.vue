@@ -22,7 +22,7 @@
 				@click="selectItem(item)"
 				@mouseenter="currentSelectionIndex = index"
 			>
-				<span class="simple-typeahead-list-item-text" :data-text="item" v-html="boldMatchText(item)"></span>
+				<span class="simple-typeahead-list-item-text" :data-text="itemProjection(item)" v-html="boldMatchText(itemProjection(item))"></span>
 			</div>
 		</div>
 	</div>
@@ -45,6 +45,12 @@ export default /*#__PURE__*/ defineComponent({
 		items: {
 			type: Array,
 			required: true,
+		},
+		itemProjection: {
+			type: Function,
+			default(item) {
+				return item;
+			}
 		},
 		minInputLength: {
 			type: Number,
@@ -113,7 +119,7 @@ export default /*#__PURE__*/ defineComponent({
 			}
 		},
 		selectItem(item) {
-			this.input = item;
+			this.input = this.itemProjection(item);
 			this.currentSelectionIndex = 0;
 			document.getElementById(this.inputId).blur();
 			this.$emit('selectItem', item);
@@ -130,13 +136,10 @@ export default /*#__PURE__*/ defineComponent({
 		wrapperId() {
 			return `${this.inputId}_wrapper`;
 		},
-		searchableItems() {
-			return this.items;
-		},
 		filteredItems() {
 			const regexp = new RegExp(this.escapeRegExp(this.input), 'i');
 
-			return this.searchableItems.filter((item) => item.match(regexp));
+			return this.items.filter((item) => this.itemProjection(item).match(regexp));
 		},
 		isListVisible() {
 			return this.isInputFocused && this.input.length >= this.minInputLength && this.filteredItems.length;

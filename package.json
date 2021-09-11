@@ -1,6 +1,6 @@
 {
   "name": "vue3-simple-typeahead",
-  "version": "0.0.3",
+  "version": "1.1.0",
   "description": "Simple Vue3 typeahead component that show a suggested list of elements while the user types in.",
   "author": "frikinside <friki.inside@gmail.com> (http://frikinside.net/)",
   "license": "MIT",

@@ -5,8 +5,22 @@
 				<div class="column column-60">
 					<span class="float-right">
 						<code>({{ listFiltered.length }}/{{ list.length }})</code>
+						<!-- <code>({{ listFiltered.length }}/{{ listUsers.length }})</code> -->
 					</span>
-					<vue3-simple-typeahead :items="list" placeholder="Start writing a programming language" @selectItem="selectItem" @onInput="onInput" :minInputLength="1" />
+					<vue3-simple-typeahead :items="list" placeholder="Start writing a programming language" @selectItem="selectItem" @onInput="onInput" @onBlur="onBlur" :minInputLength="1" />
+					<!-- <vue3-simple-typeahead
+						:items="listUsers"
+						placeholder="Start writing a user email"
+						@selectItem="selectItem"
+						@onInput="onInput"
+						@onBlur="onBlur"
+						:minInputLength="1"
+						:itemProjection="
+							(item) => {
+								return item.email;
+							}
+						"
+					/> -->
 				</div>
 				<div class="column">
 					<pre>
@@ -29,6 +43,7 @@ export default defineComponent({
 	},
 	created() {
 		this.listFiltered = this.list;
+		//this.listFiltered = this.listUsers;
 	},
 	data() {
 		return {
@@ -1538,6 +1553,10 @@ export default defineComponent({
 		},
 		onInput(event) {
 			this.data.selection = null;
+			this.data.input = event.input;
+			this.listFiltered = event.items;
+		},
+		onBlur(event) {
 			this.data.input = event.input;
 			this.listFiltered = event.items;
 		},
