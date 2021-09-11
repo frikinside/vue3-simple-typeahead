@@ -14,6 +14,21 @@ var script = /*#__PURE__*/defineComponent({
     items: {
       type: Array,
       required: true
+    },
+    itemProjection: {
+      type: Function,
+
+      default(item) {
+        return item;
+      }
+
+    },
+    minInputLength: {
+      type: Number,
+      default: 2,
+      validator: prop => {
+        return prop >= 0;
+      }
     }
   },
 
@@ -21,7 +36,7 @@ var script = /*#__PURE__*/defineComponent({
 
   data() {
     return {
-      inputId: this.id || (Math.random() * 1000).toFixed(),
+      inputId: this.id || `simple_typeahead_${(Math.random() * 1000).toFixed()}`,
       input: '',
       isInputFocused: false,
       currentSelectionIndex: 0
@@ -34,29 +49,61 @@ var script = /*#__PURE__*/defineComponent({
         this.currentSelectionIndex = (this.filteredItems.length || 1) - 1;
       }
 
-      this.$emit('onInput', this.input);
+      this.$emit('onInput', {
+        input: this.input,
+        items: this.filteredItems
+      });
     },
 
     onFocus() {
       this.isInputFocused = true;
-      this.$emit('onFocus', this.input);
+      this.$emit('onFocus', {
+        input: this.input,
+        items: this.filteredItems
+      });
     },
 
     onBlur() {
       this.isInputFocused = false;
-      this.$emit('onBlur', this.input);
+      this.$emit('onBlur', {
+        input: this.input,
+        items: this.filteredItems
+      });
     },
 
-    onArrowDown() {
+    onArrowDown($event) {
       if (this.isListVisible && this.currentSelectionIndex < this.filteredItems.length - 1) {
         this.currentSelectionIndex++;
       }
+
+      this.scrollSelectionIntoView();
     },
 
-    onArrowUp() {
+    onArrowUp($event) {
       if (this.isListVisible && this.currentSelectionIndex > 0) {
         this.currentSelectionIndex--;
       }
+
+      this.scrollSelectionIntoView();
+    },
+
+    scrollSelectionIntoView() {
+      setTimeout(() => {
+        const list_node = document.querySelector(`#${this.wrapperId} .simple-typeahead-list`);
+        const active_node = document.querySelector(`#${this.wrapperId} .simple-typeahead-list-item.simple-typeahead-list-item-active`);
+
+        if (!(active_node.offsetTop >= list_node.scrollTop && active_node.offsetTop + active_node.offsetHeight < list_node.scrollTop + list_node.offsetHeight)) {
+          let scroll_to = 0;
+
+          if (active_node.offsetTop > list_node.scrollTop) {
+            scroll_to = active_node.offsetTop + active_node.offsetHeight - list_node.offsetHeight;
+          } else if (active_node.offsetTop < list_node.scrollTop) {
+            scroll_to = active_node.offsetTop;
+          }
+
+          list_node.scrollTo(0, scroll_to);
+        }
+      });
     },
 
     selectCurrentSelection() {
@@ -66,7 +113,7 @@ var script = /*#__PURE__*/defineComponent({
     },
 
     selectItem(item) {
-      this.input = item;
+      this.input = this.itemProjection(item);
       this.currentSelectionIndex = 0;
       document.getElementById(this.inputId).blur();
       this.$emit('selectItem', item);
@@ -83,17 +130,17 @@ var script = /*#__PURE__*/defineComponent({
 
   },
   computed: {
-    searchableItems() {
-      return this.items;
+    wrapperId() {
+      return `${this.inputId}_wrapper`;
     },
 
     filteredItems() {
       const regexp = new RegExp(this.escapeRegExp(this.input), 'i');
-      return this.searchableItems.filter(item => item.match(regexp));
+      return this.items.filter(item => this.itemProjection(item).match(regexp));
     },
 
     isListVisible() {
-      return this.isInputFocused && this.input.length > 1 && this.filteredItems.length;
+      return this.isInputFocused && this.input.length >= this.minInputLength && this.filteredItems.length;
     },
 
     currentSelection() {
@@ -103,11 +150,9 @@ var script = /*#__PURE__*/defineComponent({
   }
 });
 
-pushScopeId("data-v-3e3e9518");
+pushScopeId("data-v-0c9168ec");
 
-const _hoisted_1 = {
-  class: "simple-typeahead"
-};
+const _hoisted_1 = ["id"];
 const _hoisted_2 = ["id", "placeholder"];
 const _hoisted_3 = {
   key: 0,
@@ -119,7 +164,10 @@ const _hoisted_5 = ["data-text", "innerHTML"];
 popScopeId();
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("div", _hoisted_1, [withDirectives(createElementVNode("input", {
+  return openBlock(), createElementBlock("div", {
+    id: _ctx.wrapperId,
+    class: "simple-typeahead"
+  }, [withDirectives(createElementVNode("input", {
     id: _ctx.inputId,
     type: "text",
     placeholder: _ctx.placeholder,
@@ -139,14 +187,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       onMouseenter: $event => _ctx.currentSelectionIndex = index
     }, [createElementVNode("span", {
       class: "simple-typeahead-list-item-text",
-      "data-text": item,
-      innerHTML: _ctx.boldMatchText(item)
+      "data-text": _ctx.itemProjection(item),
+      innerHTML: _ctx.boldMatchText(_ctx.itemProjection(item))
     }, null, 8, _hoisted_5)], 42, _hoisted_4);
-  }), 128))])) : createCommentVNode("", true)]);
+  }), 128))])) : createCommentVNode("", true)], 8, _hoisted_1);
 }
 
 script.render = render;
-script.__scopeId = "data-v-3e3e9518";
+script.__scopeId = "data-v-0c9168ec";
 
 // Import vue component
 // IIFE injects install function into component, allowing component

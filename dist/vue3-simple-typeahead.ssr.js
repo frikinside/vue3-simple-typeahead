@@ -69,12 +69,25 @@ function _nonIterableRest() {
     items: {
       type: Array,
       required: true
+    },
+    itemProjection: {
+      type: Function,
+      default: function _default(item) {
+        return item;
+      }
+    },
+    minInputLength: {
+      type: Number,
+      default: 2,
+      validator: function validator(prop) {
+        return prop >= 0;
+      }
     }
   },
   created: function created() {},
   data: function data() {
     return {
-      inputId: this.id || (Math.random() * 1000).toFixed(),
+      inputId: this.id || "simple_typeahead_".concat((Math.random() * 1000).toFixed()),
       input: '',
       isInputFocused: false,
       currentSelectionIndex: 0
@@ -86,25 +99,58 @@ function _nonIterableRest() {
         this.currentSelectionIndex = (this.filteredItems.length || 1) - 1;
       }
 
-      this.$emit('onInput', this.input);
+      this.$emit('onInput', {
+        input: this.input,
+        items: this.filteredItems
+      });
     },
     onFocus: function onFocus() {
       this.isInputFocused = true;
-      this.$emit('onFocus', this.input);
+      this.$emit('onFocus', {
+        input: this.input,
+        items: this.filteredItems
+      });
     },
     onBlur: function onBlur() {
       this.isInputFocused = false;
-      this.$emit('onBlur', this.input);
+      this.$emit('onBlur', {
+        input: this.input,
+        items: this.filteredItems
+      });
     },
-    onArrowDown: function onArrowDown() {
+    onArrowDown: function onArrowDown($event) {
       if (this.isListVisible && this.currentSelectionIndex < this.filteredItems.length - 1) {
         this.currentSelectionIndex++;
       }
+
+      this.scrollSelectionIntoView();
     },
-    onArrowUp: function onArrowUp() {
+    onArrowUp: function onArrowUp($event) {
       if (this.isListVisible && this.currentSelectionIndex > 0) {
         this.currentSelectionIndex--;
       }
+
+      this.scrollSelectionIntoView();
+    },
+    scrollSelectionIntoView: function scrollSelectionIntoView() {
+      var _this = this;
+
+      setTimeout(function () {
+        var list_node = document.querySelector("#".concat(_this.wrapperId, " .simple-typeahead-list"));
+        var active_node = document.querySelector("#".concat(_this.wrapperId, " .simple-typeahead-list-item.simple-typeahead-list-item-active"));
+
+        if (!(active_node.offsetTop >= list_node.scrollTop && active_node.offsetTop + active_node.offsetHeight < list_node.scrollTop + list_node.offsetHeight)) {
+          var scroll_to = 0;
+
+          if (active_node.offsetTop > list_node.scrollTop) {
+            scroll_to = active_node.offsetTop + active_node.offsetHeight - list_node.offsetHeight;
+          } else if (active_node.offsetTop < list_node.scrollTop) {
+            scroll_to = active_node.offsetTop;
+          }
+
+          list_node.scrollTo(0, scroll_to);
+        }
+      });
     },
     selectCurrentSelection: function selectCurrentSelection() {
       if (this.currentSelection) {
@@ -112,7 +158,7 @@ function _nonIterableRest() {
       }
     },
     selectItem: function selectItem(item) {
-      this.input = item;
+      this.input = this.itemProjection(item);
       this.currentSelectionIndex = 0;
       document.getElementById(this.inputId).blur();
       this.$emit('selectItem', item);
@@ -126,27 +172,27 @@ function _nonIterableRest() {
     }
   },
   computed: {
-    searchableItems: function searchableItems() {
-      return this.items;
+    wrapperId: function wrapperId() {
+      return "".concat(this.inputId, "_wrapper");
     },
     filteredItems: function filteredItems() {
+      var _this2 = this;
+
       var regexp = new RegExp(this.escapeRegExp(this.input), 'i');
-      return this.searchableItems.filter(function (item) {
-        return item.match(regexp);
+      return this.items.filter(function (item) {
+        return _this2.itemProjection(item).match(regexp);
       });
     },
     isListVisible: function isListVisible() {
-      return this.isInputFocused && this.input.length > 1 && this.filteredItems.length;
+      return this.isInputFocused && this.input.length >= this.minInputLength && this.filteredItems.length;
     },
     currentSelection: function currentSelection() {
       return this.isListVisible && this.currentSelectionIndex < this.filteredItems.length ? this.filteredItems[this.currentSelectionIndex] : undefined;
     }
   }
-});vue.pushScopeId("data-v-3e3e9518");
+});vue.pushScopeId("data-v-0c9168ec");
 
-var _hoisted_1 = {
-  class: "simple-typeahead"
-};
+var _hoisted_1 = ["id"];
 var _hoisted_2 = ["id", "placeholder"];
 var _hoisted_3 = {
   key: 0,
@@ -158,7 +204,10 @@ var _hoisted_5 = ["data-text", "innerHTML"];
 vue.popScopeId();
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return vue.openBlock(), vue.createElementBlock("div", _hoisted_1, [vue.withDirectives(vue.createElementVNode("input", {
+  return vue.openBlock(), vue.createElementBlock("div", {
+    id: _ctx.wrapperId,
+    class: "simple-typeahead"
+  }, [vue.withDirectives(vue.createElementVNode("input", {
     id: _ctx.inputId,
     type: "text",
     placeholder: _ctx.placeholder,
@@ -196,12 +245,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       }
     }, [vue.createElementVNode("span", {
       class: "simple-typeahead-list-item-text",
-      "data-text": item,
-      innerHTML: _ctx.boldMatchText(item)
+      "data-text": _ctx.itemProjection(item),
+      innerHTML: _ctx.boldMatchText(_ctx.itemProjection(item))
     }, null, 8, _hoisted_5)], 42, _hoisted_4);
-  }), 128))])) : vue.createCommentVNode("", true)]);
+  }), 128))])) : vue.createCommentVNode("", true)], 8, _hoisted_1);
 }script.render = render;
-script.__scopeId = "data-v-3e3e9518";// Import vue component
+script.__scopeId = "data-v-0c9168ec";// Import vue component
 // IIFE injects install function into component, allowing component
 // to be registered via Vue.use() as well as Vue.component(),
 
