@@ -1,10 +1,10 @@
 {
   "name": "vue3-simple-typeahead",
-  "version": "0.3.2",
-  "description": "Simple Vue3 typeahead component that show a suggested list of elements while the user types in.",
+  "version": "1.0.1",
+  "description": "A simple and lightweight Vue3 typeahead component that show a suggested list of elements while the user types in.",
   "author": "frikinside <friki.inside@gmail.com> (http://frikinside.net/)",
   "license": "MIT",
-  "homepage": "https://github.com/frikinside/vue3-simple-typeahead",
+  "homepage": "https://github.com/frikinside/vue3-simple-typeahead#readme",
   "repository": {
     "type": "git",
     "url": "https://github.com/frikinside/vue3-simple-typeahead.git"
@@ -19,9 +19,16 @@
     "typeahead",
     "select",
     "search",
-    "accessibility",
-    "a11y",
-    "WAI-ARIA",
+    "searchbox",
+    "enhanced input",
+    "component",
+    "vue-component",
+    "vue3-simple-typeahead",
+    "vue3-typeahead",
+    "vue-typeahead",
+    "vue-autocomplete",
+    "v-typeahead",
+    "v-autocomplete",
     "vue",
     "vue3",
     "vue3js",
@@ -34,8 +41,11 @@
   "style": "dist/vue3-simple-typeahead.css",
   "files": [
     "dist/*",
-    "src/**/*.vue"
+    "src/**/*.vue",
+    "LICENSE",
+    "README.md"
   ],
+  "sideEffects": ["*.css"],
   "scripts": {
     "serve": "vue-cli-service serve dev/serve.js",
     "prebuild": "rimraf ./dist",

@@ -1,5 +1,12 @@
 # vue3-simple-typeahead
 
+[![npm](https://img.shields.io/npm/v/vue3-simple-typeahead.svg)](https://www.npmjs.com/package/vue3-simple-typeahead)
+[![vue3](https://img.shields.io/badge/vue-3.x-brightgreen.svg)](https://v3.vuejs.org/)
+[![no-dependecies](https://img.shields.io/david/frikinside/vue3-simple-typeahead)](https://www.npmjs.com/package/vue3-simple-typeahead?activeTab=dependencies)
+[![License](https://img.shields.io/npm/l/vue3-simple-typeahead)](https://en.wikipedia.org/wiki/MIT_License)
+[![npm](https://img.shields.io/npm/dt/vue3-simple-typeahead.svg)](https://www.npmjs.com/package/vue3-simple-typeahead)
+[![npm bundle size](https://img.shields.io/bundlephobia/min/vue3-simple-typeahead?color=brightgreen)](https://www.npmjs.com/package/vue3-simple-typeahead)
+
 A Vue3 component for a simple typeahead component.
 It will show a list of suggested items based on the user input.
 
@@ -115,3 +122,15 @@ _Remember you can always use lower-kebap-case for camelCase props like `min-inpu
 | [`onInput`](#onInput)       | `function (event: Object { input: String, items: Array }): void` | Emitted when the user types anything                                                                |
 | [`onFocus`](#onFocus)       | `function (event: Object { input: String, items: Array }): void` | Emitted when the input control get the focus                                                        |
 | [`onBlur`](#onBlur)         | `function (event: Object { input: String, items: Array }): void` | Emitted when the input control lost the focus [When the user select an item, the focus is lost too] |
+
+### Styling
+
+Overwrite styles when using the default css included or add custom styles basing your rules on this structure.
+
+```stylus
+div#{:id}_wrapper.simple-typeahead
+	input#{:id}
+	div.simple-typeahead-list
+    	.simple-typeahead-list-item &.simple-typeahead-list-item-active
+			.simple-typeahead-list-item-text
+```

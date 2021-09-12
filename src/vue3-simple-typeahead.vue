@@ -50,7 +50,7 @@ export default /*#__PURE__*/ defineComponent({
 			type: Function,
 			default(item) {
 				return item;
-			}
+			},
 		},
 		minInputLength: {
 			type: Number,
@@ -166,6 +166,7 @@ export default /*#__PURE__*/ defineComponent({
 	max-height: 400px;
 	overflow-y: auto;
 	border-bottom: 0.1rem solid #d1d1d1;
+	z-index: 9;
 }
 .simple-typeahead .simple-typeahead-list .simple-typeahead-list-item {
 	cursor: pointer;
