@@ -190,7 +190,7 @@ function _nonIterableRest() {
       return this.isListVisible && this.currentSelectionIndex < this.filteredItems.length ? this.filteredItems[this.currentSelectionIndex] : undefined;
     }
   }
-});vue.pushScopeId("data-v-0c9168ec");
+});vue.pushScopeId("data-v-47f054d4");
 
 var _hoisted_1 = ["id"];
 var _hoisted_2 = ["id", "placeholder"];
@@ -250,7 +250,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }, null, 8, _hoisted_5)], 42, _hoisted_4);
   }), 128))])) : vue.createCommentVNode("", true)], 8, _hoisted_1);
 }script.render = render;
-script.__scopeId = "data-v-0c9168ec";// Import vue component
+script.__scopeId = "data-v-47f054d4";// Import vue component
 // IIFE injects install function into component, allowing component
 // to be registered via Vue.use() as well as Vue.component(),
 
