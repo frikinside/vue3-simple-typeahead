@@ -10,8 +10,8 @@
     "url": "https://github.com/frikinside/vue3-simple-typeahead.git"
   },
   "bugs": {
-    "url" : "https://github.com/frikinside/vue3-simple-typeahead/issues",
-    "email" : "friki.inside@gmail.com"
+    "url": "https://github.com/frikinside/vue3-simple-typeahead/issues",
+    "email": "friki.inside@gmail.com"
   },
   "keywords": [
     "autocomplete",
@@ -45,7 +45,9 @@
     "LICENSE",
     "README.md"
   ],
-  "sideEffects": ["*.css"],
+  "sideEffects": [
+    "*.css"
+  ],
   "scripts": {
     "serve": "vue-cli-service serve dev/serve.js",
     "prebuild": "rimraf ./dist",
