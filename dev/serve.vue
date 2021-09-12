@@ -7,7 +7,15 @@
 						<code>({{ listFiltered.length }}/{{ list.length }})</code>
 						<!-- <code>({{ listFiltered.length }}/{{ listUsers.length }})</code> -->
 					</span>
-					<vue3-simple-typeahead :items="list" placeholder="Start writing a programming language" @selectItem="selectItem" @onInput="onInput" @onBlur="onBlur" :minInputLength="1" />
+					<vue3-simple-typeahead
+						:items="list"
+						placeholder="Start writing a programming language"
+						v-model="data.input"
+						@selectItem="selectItem"
+						@onInput="onInput"
+						@onBlur="onBlur"
+						:minInputLength="1"
+					/>
 					<!-- <vue3-simple-typeahead
 						:items="listUsers"
 						placeholder="Start writing a user email"
@@ -1553,11 +1561,11 @@ export default defineComponent({
 		},
 		onInput(event) {
 			this.data.selection = null;
-			this.data.input = event.input;
+			//this.data.input = event.input;
 			this.listFiltered = event.items;
 		},
 		onBlur(event) {
-			this.data.input = event.input;
+			//this.data.input = event.input;
 			this.listFiltered = event.items;
 		},
 	},

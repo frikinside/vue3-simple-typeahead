@@ -29,12 +29,16 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue';
+import { defineComponent, computed } from 'vue';
 
 export default /*#__PURE__*/ defineComponent({
 	name: 'Vue3SimpleTypeahead',
-	emits: ['onInput', 'onFocus', 'onBlur', 'selectItem'],
+	emits: ['onInput', 'onFocus', 'onBlur', 'selectItem', 'update:modelValue'],
 	props: {
+		modelValue: {
+			type: String,
+			default: '',
+		},
 		id: {
 			type: String,
 		},
@@ -60,11 +64,20 @@ export default /*#__PURE__*/ defineComponent({
 			},
 		},
 	},
+	setup(props, { emit }) {
+		const input = computed({
+			get: () => props.modelValue,
+			set: (value) => emit('update:modelValue', value),
+		});
+
+		return {
+			input,
+		};
+	},
 	created() {},
 	data() {
 		return {
 			inputId: this.id || `simple_typeahead_${(Math.random() * 1000).toFixed()}`,
-			input: '',
 			isInputFocused: false,
 			currentSelectionIndex: 0,
 		};
