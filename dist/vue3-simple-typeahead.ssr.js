@@ -190,7 +190,7 @@ function _nonIterableRest() {
       return this.isListVisible && this.currentSelectionIndex < this.filteredItems.length ? this.filteredItems[this.currentSelectionIndex] : undefined;
     }
   }
-});vue.pushScopeId("data-v-47f054d4");
+});vue.pushScopeId("data-v-a4e4a1da");
 
 var _hoisted_1 = ["id"];
 var _hoisted_2 = ["id", "placeholder"];
@@ -229,7 +229,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return _ctx.onArrowUp && _ctx.onArrowUp.apply(_ctx, arguments);
     }, ["prevent"]), ["up"])), _cache[6] || (_cache[6] = vue.withKeys(vue.withModifiers(function () {
       return _ctx.selectCurrentSelection && _ctx.selectCurrentSelection.apply(_ctx, arguments);
-    }, ["prevent"]), ["enter", "tab"]))]
+    }, ["prevent"]), ["enter", "tab"]))],
+    autocomplete: "off"
   }, null, 40, _hoisted_2), [[vue.vModelText, _ctx.input]]), _ctx.isListVisible ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_3, [(vue.openBlock(true), vue.createElementBlock(vue.Fragment, null, vue.renderList(_ctx.filteredItems, function (item, index) {
     return vue.openBlock(), vue.createElementBlock("div", {
       class: vue.normalizeClass(["simple-typeahead-list-item", {
@@ -250,7 +251,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }, null, 8, _hoisted_5)], 42, _hoisted_4);
   }), 128))])) : vue.createCommentVNode("", true)], 8, _hoisted_1);
 }script.render = render;
-script.__scopeId = "data-v-47f054d4";// Import vue component
+script.__scopeId = "data-v-a4e4a1da";// Import vue component
 // IIFE injects install function into component, allowing component
 // to be registered via Vue.use() as well as Vue.component(),
 
