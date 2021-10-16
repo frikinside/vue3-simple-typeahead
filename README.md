@@ -129,7 +129,7 @@ Overwrite styles when using the default css included or add custom styles basing
 
 ```stylus
 div#{:id}_wrapper.simple-typeahead
-    input#{:id}
+    input#{:id}.simple-typeahead-input
     div.simple-typeahead-list
         .simple-typeahead-list-item &.simple-typeahead-list-item-active
             .simple-typeahead-list-item-text

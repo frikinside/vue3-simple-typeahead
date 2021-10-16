@@ -2,6 +2,7 @@
 	<div :id="wrapperId" class="simple-typeahead">
 		<input
 			:id="inputId"
+			class="simple-typeahead-input"
 			type="text"
 			:placeholder="placeholder"
 			v-model="input"
