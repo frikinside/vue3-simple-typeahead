@@ -190,7 +190,7 @@ function _nonIterableRest() {
       return this.isListVisible && this.currentSelectionIndex < this.filteredItems.length ? this.filteredItems[this.currentSelectionIndex] : undefined;
     }
   }
-});vue.pushScopeId("data-v-a4e4a1da");
+});vue.pushScopeId("data-v-31617217");
 
 var _hoisted_1 = ["id"];
 var _hoisted_2 = ["id", "placeholder"];
@@ -198,8 +198,17 @@ var _hoisted_3 = {
   key: 0,
   class: "simple-typeahead-list"
 };
-var _hoisted_4 = ["onClick", "onMouseenter"];
-var _hoisted_5 = ["data-text", "innerHTML"];
+var _hoisted_4 = {
+  key: 0,
+  class: "simple-typeahead-list-header"
+};
+var _hoisted_5 = ["onClick", "onMouseenter"];
+var _hoisted_6 = ["data-text"];
+var _hoisted_7 = ["data-text", "innerHTML"];
+var _hoisted_8 = {
+  key: 1,
+  class: "simple-typeahead-list-footer"
+};
 
 vue.popScopeId();
 
@@ -209,6 +218,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     class: "simple-typeahead"
   }, [vue.withDirectives(vue.createElementVNode("input", {
     id: _ctx.inputId,
+    class: "simple-typeahead-input",
     type: "text",
     placeholder: _ctx.placeholder,
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
@@ -231,7 +241,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return _ctx.selectCurrentSelection && _ctx.selectCurrentSelection.apply(_ctx, arguments);
     }, ["prevent"]), ["enter", "tab"]))],
     autocomplete: "off"
-  }, null, 40, _hoisted_2), [[vue.vModelText, _ctx.input]]), _ctx.isListVisible ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_3, [(vue.openBlock(true), vue.createElementBlock(vue.Fragment, null, vue.renderList(_ctx.filteredItems, function (item, index) {
+  }, null, 40, _hoisted_2), [[vue.vModelText, _ctx.input]]), _ctx.isListVisible ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_3, [_ctx.$slots['list-header'] ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_4, [vue.renderSlot(_ctx.$slots, "list-header")])) : vue.createCommentVNode("", true), (vue.openBlock(true), vue.createElementBlock(vue.Fragment, null, vue.renderList(_ctx.filteredItems, function (item, index) {
     return vue.openBlock(), vue.createElementBlock("div", {
       class: vue.normalizeClass(["simple-typeahead-list-item", {
         'simple-typeahead-list-item-active': _ctx.currentSelectionIndex == index
@@ -244,14 +254,23 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       onMouseenter: function onMouseenter($event) {
         return _ctx.currentSelectionIndex = index;
       }
-    }, [vue.createElementVNode("span", {
+    }, [_ctx.$slots['list-item-text'] ? (vue.openBlock(), vue.createElementBlock("span", {
+      key: 0,
+      class: "simple-typeahead-list-item-text",
+      "data-text": _ctx.itemProjection(item)
+    }, [vue.renderSlot(_ctx.$slots, "list-item-text", {
+      item: item,
+      itemProjection: _ctx.itemProjection,
+      boldMatchText: _ctx.boldMatchText
+    })], 8, _hoisted_6)) : (vue.openBlock(), vue.createElementBlock("span", {
+      key: 1,
       class: "simple-typeahead-list-item-text",
       "data-text": _ctx.itemProjection(item),
       innerHTML: _ctx.boldMatchText(_ctx.itemProjection(item))
-    }, null, 8, _hoisted_5)], 42, _hoisted_4);
-  }), 128))])) : vue.createCommentVNode("", true)], 8, _hoisted_1);
+    }, null, 8, _hoisted_7))], 42, _hoisted_5);
+  }), 128)), _ctx.$slots['list-footer'] ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_8, [vue.renderSlot(_ctx.$slots, "list-footer")])) : vue.createCommentVNode("", true)])) : vue.createCommentVNode("", true)], 8, _hoisted_1);
 }script.render = render;
-script.__scopeId = "data-v-a4e4a1da";// Import vue component
+script.__scopeId = "data-v-31617217";// Import vue component
 // IIFE injects install function into component, allowing component
 // to be registered via Vue.use() as well as Vue.component(),
 
