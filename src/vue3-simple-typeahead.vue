@@ -15,6 +15,7 @@
 			autocomplete="off"
 		/>
 		<div v-if="isListVisible" class="simple-typeahead-list">
+			<div class="simple-typeahead-list-header" v-if="$slots['list-header']"><slot name="list-header"></slot></div>
 			<div
 				class="simple-typeahead-list-item"
 				:class="{ 'simple-typeahead-list-item-active': currentSelectionIndex == index }"
@@ -24,8 +25,12 @@
 				@click="selectItem(item)"
 				@mouseenter="currentSelectionIndex = index"
 			>
-				<span class="simple-typeahead-list-item-text" :data-text="itemProjection(item)" v-html="boldMatchText(itemProjection(item))"></span>
+				<span class="simple-typeahead-list-item-text" :data-text="itemProjection(item)" v-if="$slots['list-item-text']"
+					><slot name="list-item-text" :item="item" :itemProjection="itemProjection" :boldMatchText="boldMatchText"></slot
+				></span>
+				<span class="simple-typeahead-list-item-text" :data-text="itemProjection(item)" v-html="boldMatchText(itemProjection(item))" v-else></span>
 			</div>
+			<div class="simple-typeahead-list-footer" v-if="$slots['list-footer']"><slot name="list-footer"></slot></div>
 		</div>
 	</div>
 </template>
@@ -169,6 +174,19 @@
 		overflow-y: auto;
 		border-bottom: 0.1rem solid #d1d1d1;
 		z-index: 9;
+	}
+	.simple-typeahead .simple-typeahead-list .simple-typeahead-list-header {
+		background-color: #fafafa;
+		padding: 0.6rem 1rem;
+		border-bottom: 0.1rem solid #d1d1d1;
+		border-left: 0.1rem solid #d1d1d1;
+		border-right: 0.1rem solid #d1d1d1;
+	}
+	.simple-typeahead .simple-typeahead-list .simple-typeahead-list-footer {
+		background-color: #fafafa;
+		padding: 0.6rem 1rem;
+		border-left: 0.1rem solid #d1d1d1;
+		border-right: 0.1rem solid #d1d1d1;
 	}
 	.simple-typeahead .simple-typeahead-list .simple-typeahead-list-item {
 		cursor: pointer;
