@@ -2,7 +2,6 @@
 
 [![npm](https://img.shields.io/npm/v/vue3-simple-typeahead.svg)](https://www.npmjs.com/package/vue3-simple-typeahead)
 [![vue3](https://img.shields.io/badge/vue-3.x-brightgreen.svg)](https://v3.vuejs.org/)
-[![no-dependecies](https://img.shields.io/david/frikinside/vue3-simple-typeahead)](https://www.npmjs.com/package/vue3-simple-typeahead?activeTab=dependencies)
 [![License](https://img.shields.io/npm/l/vue3-simple-typeahead)](https://en.wikipedia.org/wiki/MIT_License)
 [![npm](https://img.shields.io/npm/dt/vue3-simple-typeahead.svg)](https://www.npmjs.com/package/vue3-simple-typeahead)
 [![npm bundle size](https://img.shields.io/bundlephobia/min/vue3-simple-typeahead?color=brightgreen)](https://www.npmjs.com/package/vue3-simple-typeahead)
