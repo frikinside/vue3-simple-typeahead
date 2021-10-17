@@ -149,7 +149,7 @@ _Remember you can always use lower-kebap-case for camelCase props like `min-inpu
 
 ### Slots
 
-| Prop                                 | Parent                                  | Props                                     | Description                                                     |
+| Slot                                 | Parent                                  | Props                                     | Description                                                     |
 | :----------------------------------- | :-------------------------------------- | :---------------------------------------- | :-------------------------------------------------------------- |
 | [`#list-header`](#list-header)       | `div.simple-typeahead-list-header`      |                                           | Slot to be show at top of the suggestion list                   |
 | [`#list-item-text`](#list-item-text) | `span.simple-typeahead-list-item-text'` |                                           | Slot to customize the text of every item in the suggestion list |
