@@ -36,7 +36,7 @@
 </template>
 
 <script>
-	import { defineComponent, computed } from 'vue';
+	import { defineComponent } from 'vue';
 
 	export default /*#__PURE__*/ defineComponent({
 		name: 'Vue3SimpleTypeahead',

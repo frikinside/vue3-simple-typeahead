@@ -2,8 +2,12 @@ import { defineComponent, pushScopeId, popScopeId, openBlock, createElementBlock
 
 var script = /*#__PURE__*/defineComponent({
   name: 'Vue3SimpleTypeahead',
-  emits: ['onInput', 'onFocus', 'onBlur', 'selectItem'],
+  emits: ['onInput', 'onFocus', 'onBlur', 'selectItem', 'update:modelValue'],
   props: {
+    modelValue: {
+      type: String,
+      default: ''
+    },
     id: {
       type: String
     },
@@ -32,12 +36,20 @@ var script = /*#__PURE__*/defineComponent({
     }
   },
 
+  // setup(props, { emit }) {
+  // 	const input = computed({
+  // 		get: () => props.modelValue,
+  // 		set: (value) => emit('update:modelValue', value),
+  // 	});
+  // 	return {
+  // 		input,
+  // 	};
+  // },
   created() {},
 
   data() {
     return {
       inputId: this.id || `simple_typeahead_${(Math.random() * 1000).toFixed()}`,
-      input: '',
       isInputFocused: false,
       currentSelectionIndex: 0
     };
@@ -130,6 +142,17 @@ var script = /*#__PURE__*/defineComponent({
 
   },
   computed: {
+    input: {
+      get() {
+        return this.modelValue;
+      },
+
+      set(value) {
+        this.$emit('update:modelValue', value);
+      }
+
+    },
+
     wrapperId() {
       return `${this.inputId}_wrapper`;
     },
@@ -150,7 +173,7 @@ var script = /*#__PURE__*/defineComponent({
   }
 });
 
-pushScopeId("data-v-31617217");
+pushScopeId("data-v-f75d586c");
 
 const _hoisted_1 = ["id"];
 const _hoisted_2 = ["id", "placeholder"];
@@ -214,7 +237,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 }
 
 script.render = render;
-script.__scopeId = "data-v-31617217";
+script.__scopeId = "data-v-f75d586c";
 
 // Import vue component
 // IIFE injects install function into component, allowing component

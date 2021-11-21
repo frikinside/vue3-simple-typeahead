@@ -57,8 +57,12 @@ function _nonIterableRest() {
   throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }var script = /*#__PURE__*/vue.defineComponent({
   name: 'Vue3SimpleTypeahead',
-  emits: ['onInput', 'onFocus', 'onBlur', 'selectItem'],
+  emits: ['onInput', 'onFocus', 'onBlur', 'selectItem', 'update:modelValue'],
   props: {
+    modelValue: {
+      type: String,
+      default: ''
+    },
     id: {
       type: String
     },
@@ -84,11 +88,19 @@ function _nonIterableRest() {
       }
     }
   },
+  // setup(props, { emit }) {
+  // 	const input = computed({
+  // 		get: () => props.modelValue,
+  // 		set: (value) => emit('update:modelValue', value),
+  // 	});
+  // 	return {
+  // 		input,
+  // 	};
+  // },
   created: function created() {},
   data: function data() {
     return {
       inputId: this.id || "simple_typeahead_".concat((Math.random() * 1000).toFixed()),
-      input: '',
       isInputFocused: false,
       currentSelectionIndex: 0
     };
@@ -172,6 +184,14 @@ function _nonIterableRest() {
     }
   },
   computed: {
+    input: {
+      get: function get() {
+        return this.modelValue;
+      },
+      set: function set(value) {
+        this.$emit('update:modelValue', value);
+      }
+    },
     wrapperId: function wrapperId() {
       return "".concat(this.inputId, "_wrapper");
     },
@@ -190,7 +210,7 @@ function _nonIterableRest() {
       return this.isListVisible && this.currentSelectionIndex < this.filteredItems.length ? this.filteredItems[this.currentSelectionIndex] : undefined;
     }
   }
-});vue.pushScopeId("data-v-31617217");
+});vue.pushScopeId("data-v-f75d586c");
 
 var _hoisted_1 = ["id"];
 var _hoisted_2 = ["id", "placeholder"];
@@ -270,7 +290,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }, null, 8, _hoisted_7))], 42, _hoisted_5);
   }), 128)), _ctx.$slots['list-footer'] ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_8, [vue.renderSlot(_ctx.$slots, "list-footer")])) : vue.createCommentVNode("", true)])) : vue.createCommentVNode("", true)], 8, _hoisted_1);
 }script.render = render;
-script.__scopeId = "data-v-31617217";// Import vue component
+script.__scopeId = "data-v-f75d586c";// Import vue component
 // IIFE injects install function into component, allowing component
 // to be registered via Vue.use() as well as Vue.component(),
 
