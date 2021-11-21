@@ -2,7 +2,6 @@
 
 [![npm](https://img.shields.io/npm/v/vue3-simple-typeahead.svg)](https://www.npmjs.com/package/vue3-simple-typeahead)
 [![vue3](https://img.shields.io/badge/vue-3.x-brightgreen.svg)](https://v3.vuejs.org/)
-[![no-dependecies](https://img.shields.io/david/frikinside/vue3-simple-typeahead)](https://www.npmjs.com/package/vue3-simple-typeahead?activeTab=dependencies)
 [![License](https://img.shields.io/npm/l/vue3-simple-typeahead)](https://en.wikipedia.org/wiki/MIT_License)
 [![npm](https://img.shields.io/npm/dt/vue3-simple-typeahead.svg)](https://www.npmjs.com/package/vue3-simple-typeahead)
 [![npm bundle size](https://img.shields.io/bundlephobia/min/vue3-simple-typeahead?color=brightgreen)](https://www.npmjs.com/package/vue3-simple-typeahead)
@@ -84,6 +83,30 @@ Use the component on your own app components
 </vue3-simple-typeahead>
 ```
 
+With custom slots template
+
+```html
+<vue3-simple-typeahead
+	id="typeahead_id"
+	placeholder="Start writing..."
+	:items="['One','Two','Three',...]"
+	:minInputLength="1"
+	:itemProjection="itemProjectionFunction"
+	@selectItem="selectItemEventHandler"
+	@onInput="onInputEventHandler"
+	@onFocus="onFocusEventHandler"
+	@onBlur="onBlurEventHandler"
+>
+	<template #list-header>
+		LIST HEADER
+	</template>
+	<template #list-item-text="slot"><span v-html="slot.boldMatchText(slot.itemProjection(slot.item))"></span></template>
+	<template #list-footer>
+		LIST FOOTER
+	</template>
+</vue3-simple-typeahead>
+```
+
 ### User interaction
 
 When the user types on the typeahead input and the minimum input length is meeted a suggestion list appears below the input with the items that match the user input.
@@ -123,14 +146,32 @@ _Remember you can always use lower-kebap-case for camelCase props like `min-inpu
 | [`onFocus`](#onFocus)       | `function (event: Object { input: String, items: Array }): void` | Emitted when the input control get the focus                                                        |
 | [`onBlur`](#onBlur)         | `function (event: Object { input: String, items: Array }): void` | Emitted when the input control lost the focus [When the user select an item, the focus is lost too] |
 
+### Slots
+
+| Slot                                 | Parent                                  | Props                                     | Description                                                     |
+| :----------------------------------- | :-------------------------------------- | :---------------------------------------- | :-------------------------------------------------------------- |
+| [`#list-header`](#list-header)       | `div.simple-typeahead-list-header`      |                                           | Slot to be show at top of the suggestion list                   |
+| [`#list-item-text`](#list-item-text) | `span.simple-typeahead-list-item-text'` | `item`, `itemProjection`, `boldMatchText` | Slot to customize the text of every item in the suggestion list |
+| [`#list-footer`](#list-footer)       | `div.simple-typeahead-list-footer`      |                                           | Slot to be show at bottom of the suggestion list                |
+
+#### Slot `#list-item-text` props
+
+| Prop                                | Type             | Description                                                                                                   |
+| :---------------------------------- | :--------------- | :------------------------------------------------------------------------------------------------------------ |
+| [`item`](#item)                     | String or Object | The item of the items array                                                                                   |
+| [`itemProjection`](#itemProjection) | function         | Use the item projection function provided as prop to the `vue3-simple-typeahead` element                      |
+| [`boldMatchText`](#boldMatchText)   | function         | A function that receives a string and add strong tags to the parts of the text matched by the search criteria |
+
 ### Styling
 
 Overwrite styles when using the default css included or add custom styles basing your rules on this structure.
 
 ```stylus
 div#{:id}_wrapper.simple-typeahead
-    input#{:id}
+    input#{:id}.simple-typeahead-input
     div.simple-typeahead-list
+        .simple-typeahead-list-header
         .simple-typeahead-list-item &.simple-typeahead-list-item-active
             .simple-typeahead-list-item-text
+        .simple-typeahead-list-footer
 ```
