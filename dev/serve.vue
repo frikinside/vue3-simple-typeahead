@@ -1578,11 +1578,9 @@
 			},
 			onInput(event) {
 				this.data.selection = null;
-				this.data.input = event.input;
 				this.listFiltered = event.items;
 			},
 			onBlur(event) {
-				this.data.input = event.input;
 				this.listFiltered = event.items;
 			},
 		},

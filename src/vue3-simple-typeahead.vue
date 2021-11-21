@@ -71,21 +71,20 @@
 				},
 			},
 		},
-		setup(props, { emit }) {
-			const input = computed({
-				get: () => props.modelValue,
-				set: (value) => emit('update:modelValue', value),
-			});
+		// setup(props, { emit }) {
+		// 	const input = computed({
+		// 		get: () => props.modelValue,
+		// 		set: (value) => emit('update:modelValue', value),
+		// 	});
 
-			return {
-				input,
-			};
-		},
+		// 	return {
+		// 		input,
+		// 	};
+		// },
 		created() {},
 		data() {
 			return {
 				inputId: this.id || `simple_typeahead_${(Math.random() * 1000).toFixed()}`,
-				input: '',
 				isInputFocused: false,
 				currentSelectionIndex: 0,
 			};
@@ -154,6 +153,14 @@
 			},
 		},
 		computed: {
+			input: {
+				get() {
+					return this.modelValue;
+				},
+				set(value) {
+					this.$emit('update:modelValue', value);
+				},
+			},
 			wrapperId() {
 				return `${this.inputId}_wrapper`;
 			},
