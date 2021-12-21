@@ -7,7 +7,7 @@
 						<code>({{ listFiltered.length }}/{{ list.length }})</code>
 						<!-- <code>({{ listFiltered.length }}/{{ listUsers.length }})</code> -->
 					</span>
-					<vue3-simple-typeahead :items="list" placeholder="Start writing a programming language" @selectItem="selectItem" @onInput="onInput" @onBlur="onBlur" :minInputLength="1" />
+					<vue3-simple-typeahead defaultItem="Java" :items="list" placeholder="Start writing a programming language" @selectItem="selectItem" @onInput="onInput" @onBlur="onBlur" :minInputLength="1" />
 					<vue3-simple-typeahead :items="list" placeholder="Start writing a programming language SLOTS" @selectItem="selectItem" @onInput="onInput" @onBlur="onBlur" :minInputLength="1">
 						<template #list-header>
 							LIST HEADER

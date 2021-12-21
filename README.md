@@ -132,6 +132,7 @@ You can use the mouse instead, simply hover you cursor over the desire element a
 | [`id`](#id)                         | String           | Random id generation       | The id for the input control. Can be useful to link with a `label for=""`               |
 | [`placeholder`](#placeholder)       | String           | `''`                       | Placeholder text for the input                                                          |
 | [`items`](#items)                   | Array (Required) |                            | List of objects or strings with the elements for suggestions                            |
+| [`defaultItem`](#defaultItem)       | Any              |                            | Default item to be selected                                                             |
 | [`minInputLength`](#minInputLength) | Number           | 2                          | Minimum input length for the suggestion length to appear, the prop value has to be >= 0 |
 | [`itemProjection`](#itemProjection) | Function: String | `(item) => {return item;}` | Projection function to map the items to a string value for search and display           |
 

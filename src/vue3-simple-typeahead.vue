@@ -53,6 +53,9 @@
 				type: Array,
 				required: true,
 			},
+			defaultItem: {
+				default: null,
+			},
 			itemProjection: {
 				type: Function,
 				default(item) {
@@ -67,7 +70,11 @@
 				},
 			},
 		},
-		created() {},
+		mounted() {
+			if (this.defaultItem !== undefined && this.defaultItem !== null) {
+				this.selectItem(this.defaultItem);
+			}
+		},
 		data() {
 			return {
 				inputId: this.id || `simple_typeahead_${(Math.random() * 1000).toFixed()}`,
