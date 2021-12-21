@@ -17,6 +17,8 @@ The component includes it's own input and when the user types on it the suggeste
 
 [Go to demo page](https://vue3-simple-typeahead-demo.netlify.app/)
 
+[vue3-simple-typeahead-demo source code](https://github.com/frikinside/vue3-simple-typeahead-demo)
+
 ## Installation
 
 ### [NPM](https://www.npmjs.com/package/vue3-simple-typeahead)
