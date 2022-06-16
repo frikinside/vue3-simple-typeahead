@@ -8,7 +8,7 @@
 						<!-- <code>({{ listFiltered.length }}/{{ listUsers.length }})</code> -->
 					</span>
 					<vue3-simple-typeahead defaultItem="Java" :items="list" placeholder="Start writing a programming language" @selectItem="selectItem" @onInput="onInput" @onBlur="onBlur" :minInputLength="1" />
-					<vue3-simple-typeahead :items="list" placeholder="Start writing a programming language SLOTS" @selectItem="selectItem" @onInput="onInput" @onBlur="onBlur" :minInputLength="1">
+					<vue3-simple-typeahead :items="listLazy" placeholder="Start writing a programming language SLOTS" @selectItem="selectItem" @onInput="onInput" @onBlur="onBlur" :minInputLength="4">
 						<template #list-header>
 							LIST HEADER
 						</template>
@@ -56,6 +56,7 @@
 		},
 		data() {
 			return {
+				listLazy: [],
 				list: [
 					'A.NET (A#/A sharp)',
 					'A-0 System',
@@ -1564,6 +1565,12 @@
 				this.data.selection = null;
 				this.data.input = event.input;
 				this.listFiltered = event.items;
+
+				if (event.input.length > 3) {
+					setTimeout(() => (this.listLazy = this.list));
+				} else {
+					this.listLazy = [];
+				}
 			},
 			onBlur(event) {
 				this.data.input = event.input;

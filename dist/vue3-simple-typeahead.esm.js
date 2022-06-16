@@ -1,4 +1,4 @@
-import { defineComponent, pushScopeId, popScopeId, openBlock, createElementBlock, withDirectives, createElementVNode, withKeys, withModifiers, vModelText, renderSlot, createCommentVNode, Fragment, renderList, normalizeClass } from 'vue';
+import { defineComponent, pushScopeId, popScopeId, openBlock, createElementBlock, withDirectives, createElementVNode, mergeProps, withKeys, withModifiers, vModelText, renderSlot, createCommentVNode, Fragment, renderList, normalizeClass } from 'vue';
 
 var script = /*#__PURE__*/defineComponent({
   name: 'Vue3SimpleTypeahead',
@@ -157,7 +157,7 @@ var script = /*#__PURE__*/defineComponent({
   }
 });
 
-pushScopeId("data-v-04d98098");
+pushScopeId("data-v-590ce012");
 
 const _hoisted_1 = ["id"];
 const _hoisted_2 = ["id", "placeholder"];
@@ -183,7 +183,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", {
     id: _ctx.wrapperId,
     class: "simple-typeahead"
-  }, [withDirectives(createElementVNode("input", {
+  }, [withDirectives(createElementVNode("input", mergeProps({
     id: _ctx.inputId,
     class: "simple-typeahead-input",
     type: "text",
@@ -194,7 +194,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onBlur: _cache[3] || (_cache[3] = (...args) => _ctx.onBlur && _ctx.onBlur(...args)),
     onKeydown: [_cache[4] || (_cache[4] = withKeys(withModifiers((...args) => _ctx.onArrowDown && _ctx.onArrowDown(...args), ["prevent"]), ["down"])), _cache[5] || (_cache[5] = withKeys(withModifiers((...args) => _ctx.onArrowUp && _ctx.onArrowUp(...args), ["prevent"]), ["up"])), _cache[6] || (_cache[6] = withKeys(withModifiers((...args) => _ctx.selectCurrentSelection && _ctx.selectCurrentSelection(...args), ["prevent"]), ["enter", "tab"]))],
     autocomplete: "off"
-  }, null, 40, _hoisted_2), [[vModelText, _ctx.input]]), _ctx.isListVisible ? (openBlock(), createElementBlock("div", _hoisted_3, [_ctx.$slots['list-header'] ? (openBlock(), createElementBlock("div", _hoisted_4, [renderSlot(_ctx.$slots, "list-header")])) : createCommentVNode("", true), (openBlock(true), createElementBlock(Fragment, null, renderList(_ctx.filteredItems, (item, index) => {
+  }, _ctx.$attrs), null, 16, _hoisted_2), [[vModelText, _ctx.input]]), _ctx.isListVisible ? (openBlock(), createElementBlock("div", _hoisted_3, [_ctx.$slots['list-header'] ? (openBlock(), createElementBlock("div", _hoisted_4, [renderSlot(_ctx.$slots, "list-header")])) : createCommentVNode("", true), (openBlock(true), createElementBlock(Fragment, null, renderList(_ctx.filteredItems, (item, index) => {
     return openBlock(), createElementBlock("div", {
       class: normalizeClass(["simple-typeahead-list-item", {
         'simple-typeahead-list-item-active': _ctx.currentSelectionIndex == index
@@ -221,7 +221,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 }
 
 script.render = render;
-script.__scopeId = "data-v-04d98098";
+script.__scopeId = "data-v-590ce012";
 
 // Import vue component
 // IIFE injects install function into component, allowing component

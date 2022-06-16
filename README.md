@@ -53,17 +53,15 @@ app.mount('#app');
 You can also import vue3-simple-typeahead locally in your component if you prefer.
 
 ```js
-import SimpleTypeahead from 'vue3-simple-typeahead'
-import 'vue3-simple-typeahead/dist/vue3-simple-typeahead.css' //Optional default CSS
+import SimpleTypeahead from 'vue3-simple-typeahead';
+import 'vue3-simple-typeahead/dist/vue3-simple-typeahead.css'; //Optional default CSS
 
 export default {
-  name: 'my-vue-component',
-  ...
-  components: {
-    SimpleTypeahead
-  }
-  ...
-}
+	name: 'my-vue-component',
+	components: {
+		SimpleTypeahead,
+	},
+};
 ```
 
 ## Usage
@@ -126,6 +124,35 @@ When the suggestion list show up, you can continue to type to filter the selecti
 You can use the mouse instead, simply hover you cursor over the desire element and click on it.
 
 ![User controls](vue3-simple-typeahead.gif)
+
+### Fallthrough attributes
+
+All attributes added to the component not provided by props fallthrough the input control.
+For example if you added the `disabled` attribute:
+
+```html
+<vue3-simple-typeahead
+	id="typeahead_id"
+	placeholder="Start writing..."
+	:items="['One','Two','Three',...]"
+	:minInputLength="1"
+	:itemProjection="itemProjectionFunction"
+	@selectItem="selectItemEventHandler"
+	@onInput="onInputEventHandler"
+	@onFocus="onFocusEventHandler"
+	@onBlur="onBlurEventHandler"
+	:disabled="disabled"
+>
+</vue3-simple-typeahead>
+```
+
+It would fallthrough to the input control of the component:
+
+```html
+<!---->
+<input [...] :disabled="disabled" />
+<!---->
+```
 
 ### Props
 
