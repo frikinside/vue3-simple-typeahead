@@ -4,7 +4,8 @@
 			:id="inputId"
 			class="simple-typeahead-input"
 			type="text"
-			:placeholder="placeholder"
+      :disabled="disabled"
+      :placeholder="placeholder"
 			v-model="input"
 			@input="onInput"
 			@focus="onFocus"
@@ -49,6 +50,9 @@
 				type: String,
 				default: '',
 			},
+      disabled:{
+        type:Boolean
+      },
 			items: {
 				type: Array,
 				required: true,

@@ -73,7 +73,8 @@ Use the component on your own app components
 ```html
 <vue3-simple-typeahead
 	id="typeahead_id"
-	placeholder="Start writing..."
+        disabled
+	placeholder="Start writing..." 
 	:items="['One','Two','Three',...]"
 	:minInputLength="1"
 	:itemProjection="itemProjectionFunction"
@@ -130,14 +131,14 @@ You can use the mouse instead, simply hover you cursor over the desire element a
 ### Props
 
 | Prop                                | Type             | Default                    | Description                                                                             |
-| :---------------------------------- | :--------------- | :------------------------- | :-------------------------------------------------------------------------------------- |
+| :---------------------------------- |:-----------------|:---------------------------|:----------------------------------------------------------------------------------------|
 | [`id`](#id)                         | String           | Random id generation       | The id for the input control. Can be useful to link with a `label for=""`               |
 | [`placeholder`](#placeholder)       | String           | `''`                       | Placeholder text for the input                                                          |
 | [`items`](#items)                   | Array (Required) |                            | List of objects or strings with the elements for suggestions                            |
 | [`defaultItem`](#defaultItem)       | Any              |                            | Default item to be selected                                                             |
 | [`minInputLength`](#minInputLength) | Number           | 2                          | Minimum input length for the suggestion length to appear, the prop value has to be >= 0 |
 | [`itemProjection`](#itemProjection) | Function: String | `(item) => {return item;}` | Projection function to map the items to a string value for search and display           |
-
+| [`disabled`](#disabled) | Boolean          | false                      | property to set the disabled state of the input field.                                  |
 _Remember you can always use lower-kebap-case for camelCase props like `min-input-length`_
 
 ### Events
