@@ -42,6 +42,7 @@
 	export default /*#__PURE__*/ defineComponent({
 		name: 'Vue3SimpleTypeahead',
 		emits: ['onInput', 'onFocus', 'onBlur', 'selectItem'],
+		inheritAttrs: false,
 		props: {
 			id: {
 				type: String,
