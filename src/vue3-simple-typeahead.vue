@@ -1,6 +1,7 @@
 <template>
 	<div :id="wrapperId" class="simple-typeahead">
 		<input
+			ref="inputRef"
 			:id="inputId"
 			class="simple-typeahead-input"
 			type="text"
@@ -136,7 +137,7 @@
 			selectItem(item) {
 				this.input = this.itemProjection(item);
 				this.currentSelectionIndex = 0;
-				document.getElementById(this.inputId).blur();
+				this.$refs.inputRef.blur();
 				this.$emit('selectItem', item);
 			},
 			escapeRegExp(string) {
@@ -145,6 +146,20 @@
 			boldMatchText(text) {
 				const regexp = new RegExp(`(${this.escapeRegExp(this.input)})`, 'ig');
 				return text.replace(regexp, '<strong>$1</strong>');
+			},
+			clearInput() {
+				this.input = '';
+			},
+			getInput() {
+				return this.$refs.inputRef;
+			},
+			focusInput() {
+				this.$refs.inputRef.focus();
+				this.onFocus();
+			},
+			blurInput() {
+				this.$refs.inputRef.blur();
+				this.onBlur();
 			},
 		},
 		computed: {

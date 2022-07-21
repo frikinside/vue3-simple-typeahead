@@ -192,6 +192,27 @@ _Remember you can always use lower-kebap-case for camelCase props like `min-inpu
 | [`itemProjection`](#itemProjection) | function         | Use the item projection function provided as prop to the `vue3-simple-typeahead` element                      |
 | [`boldMatchText`](#boldMatchText)   | function         | A function that receives a string and add strong tags to the parts of the text matched by the search criteria |
 
+### Methods
+
+| Method                      | Signature                       | Description                                                      |
+| :-------------------------- | :------------------------------ | :--------------------------------------------------------------- |
+| [`clearInput`](#clearInput) | `function (): void`             | Clean the input with an empty string `''`                        |
+| [`focusInput`](#focusInput) | `function (): void`             | Trigger focus on the input and called `onFocus` event handler    |
+| [`blurInput`](#blurInput)   | `function (): void`             | Trigger blur on the input and called `onBlur` event handler      |
+| [`getInput`](#getInput)     | `function (): HTMLInputElement` | Return the `HTMLInputElement` corresponding to the input control |
+
+_This methods are accesible via [refs](https://vuejs.org/guide/essentials/template-refs.html)_
+
+```html
+<vue3-simple-typeahead ref="inputRef"> </vue3-simple-typeahead>
+```
+
+```javascript
+{
+	this.$refs.inputRef;
+}
+```
+
 ### Styling
 
 Overwrite styles when using the default css included or add custom styles basing your rules on this structure.
