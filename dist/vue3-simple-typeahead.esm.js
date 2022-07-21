@@ -3,6 +3,7 @@ import { defineComponent, pushScopeId, popScopeId, openBlock, createElementBlock
 var script = /*#__PURE__*/defineComponent({
   name: 'Vue3SimpleTypeahead',
   emits: ['onInput', 'onFocus', 'onBlur', 'selectItem'],
+  inheritAttrs: false,
   props: {
     id: {
       type: String
@@ -122,7 +123,7 @@ var script = /*#__PURE__*/defineComponent({
     selectItem(item) {
       this.input = this.itemProjection(item);
       this.currentSelectionIndex = 0;
-      document.getElementById(this.inputId).blur();
+      this.$refs.inputRef.blur();
       this.$emit('selectItem', item);
     },
 
@@ -133,6 +134,24 @@ var script = /*#__PURE__*/defineComponent({
     boldMatchText(text) {
       const regexp = new RegExp(`(${this.escapeRegExp(this.input)})`, 'ig');
       return text.replace(regexp, '<strong>$1</strong>');
+    },
+
+    clearInput() {
+      this.input = '';
+    },
+
+    getInput() {
+      return this.$refs.inputRef;
+    },
+
+    focusInput() {
+      this.$refs.inputRef.focus();
+      this.onFocus();
+    },
+
+    blurInput() {
+      this.$refs.inputRef.blur();
+      this.onBlur();
     }
 
   },
@@ -157,7 +176,7 @@ var script = /*#__PURE__*/defineComponent({
   }
 });
 
-pushScopeId("data-v-590ce012");
+pushScopeId("data-v-0ccb6f26");
 
 const _hoisted_1 = ["id"];
 const _hoisted_2 = ["id", "placeholder"];
@@ -184,6 +203,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     id: _ctx.wrapperId,
     class: "simple-typeahead"
   }, [withDirectives(createElementVNode("input", mergeProps({
+    ref: "inputRef",
     id: _ctx.inputId,
     class: "simple-typeahead-input",
     type: "text",
@@ -221,7 +241,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 }
 
 script.render = render;
-script.__scopeId = "data-v-590ce012";
+script.__scopeId = "data-v-0ccb6f26";
 
 // Import vue component
 // IIFE injects install function into component, allowing component
