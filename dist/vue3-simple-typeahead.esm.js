@@ -33,6 +33,10 @@ var script = /*#__PURE__*/defineComponent({
       validator: prop => {
         return prop >= 0;
       }
+    },
+    selectOnTab: {
+      type: Boolean,
+      default: true
     }
   },
 
@@ -120,6 +124,14 @@ var script = /*#__PURE__*/defineComponent({
       }
     },
 
+    selectCurrentSelectionTab() {
+      if (this.selectOnTab) {
+        this.selectCurrentSelection();
+      } else {
+        this.$refs.inputRef.blur();
+      }
+    },
+
     selectItem(item) {
       this.input = this.itemProjection(item);
       this.currentSelectionIndex = 0;
@@ -176,7 +188,7 @@ var script = /*#__PURE__*/defineComponent({
   }
 });
 
-pushScopeId("data-v-0ccb6f26");
+pushScopeId("data-v-714f38b8");
 
 const _hoisted_1 = ["id"];
 const _hoisted_2 = ["id", "placeholder"];
@@ -212,7 +224,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onInput: _cache[1] || (_cache[1] = (...args) => _ctx.onInput && _ctx.onInput(...args)),
     onFocus: _cache[2] || (_cache[2] = (...args) => _ctx.onFocus && _ctx.onFocus(...args)),
     onBlur: _cache[3] || (_cache[3] = (...args) => _ctx.onBlur && _ctx.onBlur(...args)),
-    onKeydown: [_cache[4] || (_cache[4] = withKeys(withModifiers((...args) => _ctx.onArrowDown && _ctx.onArrowDown(...args), ["prevent"]), ["down"])), _cache[5] || (_cache[5] = withKeys(withModifiers((...args) => _ctx.onArrowUp && _ctx.onArrowUp(...args), ["prevent"]), ["up"])), _cache[6] || (_cache[6] = withKeys(withModifiers((...args) => _ctx.selectCurrentSelection && _ctx.selectCurrentSelection(...args), ["prevent"]), ["enter", "tab"]))],
+    onKeydown: [_cache[4] || (_cache[4] = withKeys(withModifiers((...args) => _ctx.onArrowDown && _ctx.onArrowDown(...args), ["prevent"]), ["down"])), _cache[5] || (_cache[5] = withKeys(withModifiers((...args) => _ctx.onArrowUp && _ctx.onArrowUp(...args), ["prevent"]), ["up"])), _cache[6] || (_cache[6] = withKeys(withModifiers((...args) => _ctx.selectCurrentSelection && _ctx.selectCurrentSelection(...args), ["prevent"]), ["enter"])), _cache[7] || (_cache[7] = withKeys(withModifiers((...args) => _ctx.selectCurrentSelectionTab && _ctx.selectCurrentSelectionTab(...args), ["prevent"]), ["tab"]))],
     autocomplete: "off"
   }, _ctx.$attrs), null, 16, _hoisted_2), [[vModelText, _ctx.input]]), _ctx.isListVisible ? (openBlock(), createElementBlock("div", _hoisted_3, [_ctx.$slots['list-header'] ? (openBlock(), createElementBlock("div", _hoisted_4, [renderSlot(_ctx.$slots, "list-header")])) : createCommentVNode("", true), (openBlock(true), createElementBlock(Fragment, null, renderList(_ctx.filteredItems, (item, index) => {
     return openBlock(), createElementBlock("div", {
@@ -220,7 +232,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         'simple-typeahead-list-item-active': _ctx.currentSelectionIndex == index
       }]),
       key: index,
-      onMousedown: _cache[7] || (_cache[7] = withModifiers(() => {}, ["prevent"])),
+      onMousedown: _cache[8] || (_cache[8] = withModifiers(() => {}, ["prevent"])),
       onClick: $event => _ctx.selectItem(item),
       onMouseenter: $event => _ctx.currentSelectionIndex = index
     }, [_ctx.$slots['list-item-text'] ? (openBlock(), createElementBlock("span", {
@@ -241,7 +253,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 }
 
 script.render = render;
-script.__scopeId = "data-v-0ccb6f26";
+script.__scopeId = "data-v-714f38b8";
 
 // Import vue component
 // IIFE injects install function into component, allowing component
