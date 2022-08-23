@@ -119,7 +119,7 @@ When the suggestion list show up, you can continue to type to filter the selecti
 | <kbd>↑</kbd>     | Navigate up on the suggestion list, selecting the previous element |
 | <kbd>↓</kbd>     | Navigate down on the suggestion list, selecting the next element   |
 | <kbd>Enter</kbd> | Choose the current element selection                               |
-| <kbd>TAB</kbd>   | Choose the current element selection                               |
+| <kbd>TAB</kbd>   | Choose the current element selection (if `selectOnTab` is `true`)  |
 
 You can use the mouse instead, simply hover you cursor over the desire element and click on it.
 
@@ -164,6 +164,7 @@ It would fallthrough to the input control of the component:
 | [`defaultItem`](#defaultItem)       | Any              |                            | Default item to be selected                                                             |
 | [`minInputLength`](#minInputLength) | Number           | 2                          | Minimum input length for the suggestion length to appear, the prop value has to be >= 0 |
 | [`itemProjection`](#itemProjection) | Function: String | `(item) => {return item;}` | Projection function to map the items to a string value for search and display           |
+| [`selectOnTab`](#selectOnTab)       | Boolean          | `true`                     | Enable/Disable item selection on <kbd>TAB</kbd>                                         |
 
 _Remember you can always use lower-kebap-case for camelCase props like `min-input-length`_
 

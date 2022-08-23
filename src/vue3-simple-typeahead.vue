@@ -12,7 +12,8 @@
 			@blur="onBlur"
 			@keydown.down.prevent="onArrowDown"
 			@keydown.up.prevent="onArrowUp"
-			@keydown.enter.tab.prevent="selectCurrentSelection"
+			@keydown.enter.prevent="selectCurrentSelection"
+			@keydown.tab.prevent="selectCurrentSelectionTab"
 			autocomplete="off"
 			v-bind="$attrs"
 		/>
@@ -71,6 +72,10 @@
 				validator: (prop) => {
 					return prop >= 0;
 				},
+			},
+			selectOnTab: {
+				type: Boolean,
+				default: true,
 			},
 		},
 		mounted() {
@@ -133,6 +138,13 @@
 			selectCurrentSelection() {
 				if (this.currentSelection) {
 					this.selectItem(this.currentSelection);
+				}
+			},
+			selectCurrentSelectionTab() {
+				if (this.selectOnTab) {
+					this.selectCurrentSelection();
+				} else {
+					this.$refs.inputRef.blur();
 				}
 			},
 			selectItem(item) {

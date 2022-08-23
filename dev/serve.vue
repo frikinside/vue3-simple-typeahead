@@ -16,6 +16,7 @@
 						@onInput="onInput"
 						@onBlur="onBlur"
 						:minInputLength="1"
+						:selectOnTab="true"
 					/>
 					<button type="button" @click="test">TEST</button>
 					<vue3-simple-typeahead :items="listLazy" placeholder="Start writing a programming language SLOTS" @selectItem="selectItem" @onInput="onInput" @onBlur="onBlur" :minInputLength="4">
