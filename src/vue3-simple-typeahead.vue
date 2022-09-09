@@ -73,6 +73,13 @@
 					return prop >= 0;
 				},
 			},
+			minItemLength: {
+				type: Number,
+				default: 0,
+				validator: (prop) => {
+					return prop >= 0;
+				},
+			},
 			selectOnTab: {
 				type: Boolean,
 				default: true,
@@ -185,7 +192,7 @@
 				return this.items.filter((item) => this.itemProjection(item).match(regexp));
 			},
 			isListVisible() {
-				return this.isInputFocused && this.input.length >= this.minInputLength && this.filteredItems.length;
+				return this.isInputFocused && this.input.length >= this.minInputLength && this.filteredItems.length > this.minItemLength;
 			},
 			currentSelection() {
 				return this.isListVisible && this.currentSelectionIndex < this.filteredItems.length ? this.filteredItems[this.currentSelectionIndex] : undefined;
