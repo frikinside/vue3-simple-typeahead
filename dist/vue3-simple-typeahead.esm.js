@@ -34,6 +34,13 @@ var script = /*#__PURE__*/defineComponent({
         return prop >= 0;
       }
     },
+    minItemLength: {
+      type: Number,
+      default: 0,
+      validator: prop => {
+        return prop >= 0;
+      }
+    },
     selectOnTab: {
       type: Boolean,
       default: true
@@ -178,7 +185,7 @@ var script = /*#__PURE__*/defineComponent({
     },
 
     isListVisible() {
-      return this.isInputFocused && this.input.length >= this.minInputLength && this.filteredItems.length;
+      return this.isInputFocused && this.input.length >= this.minInputLength && this.filteredItems.length > this.minItemLength;
     },
 
     currentSelection() {
@@ -188,7 +195,7 @@ var script = /*#__PURE__*/defineComponent({
   }
 });
 
-pushScopeId("data-v-714f38b8");
+pushScopeId("data-v-f81ca714");
 
 const _hoisted_1 = ["id"];
 const _hoisted_2 = ["id", "placeholder"];
@@ -253,7 +260,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 }
 
 script.render = render;
-script.__scopeId = "data-v-714f38b8";
+script.__scopeId = "data-v-f81ca714";
 
 // Import vue component
 // IIFE injects install function into component, allowing component
