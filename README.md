@@ -156,16 +156,16 @@ It would fallthrough to the input control of the component:
 
 ### Props
 
-| Prop                                | Type             | Default                    | Description                                                                             |
-| :---------------------------------- | :--------------- | :------------------------- | :-------------------------------------------------------------------------------------- |
-| [`id`](#id)                         | String           | Random id generation       | The id for the input control. Can be useful to link with a `label for=""`               |
-| [`placeholder`](#placeholder)       | String           | `''`                       | Placeholder text for the input                                                          |
-| [`items`](#items)                   | Array (Required) |                            | List of objects or strings with the elements for suggestions                            |
-| [`defaultItem`](#defaultItem)       | Any              |                            | Default item to be selected                                                             |
-| [`minInputLength`](#minInputLength) | Number           | 2                          | Minimum input length for the suggestion length to appear, the prop value has to be >= 0 |
+| Prop                                | Type             | Default                    | Description                                                                                              |
+| :---------------------------------- | :--------------- | :------------------------- | :------------------------------------------------------------------------------------------------------- |
+| [`id`](#id)                         | String           | Random id generation       | The id for the input control. Can be useful to link with a `label for=""`                                |
+| [`placeholder`](#placeholder)       | String           | `''`                       | Placeholder text for the input                                                                           |
+| [`items`](#items)                   | Array (Required) |                            | List of objects or strings with the elements for suggestions                                             |
+| [`defaultItem`](#defaultItem)       | Any              |                            | Default item to be selected                                                                              |
+| [`minInputLength`](#minInputLength) | Number           | 2                          | Minimum input length for the suggestion length to appear, the prop value has to be >= 0                  |
 | [`minItemLength`](#minItemLength)   | Number           | 0                          | Minimum number of items that need to be visible for suggestions to appear, the prop value has to be >= 0 |
-| [`itemProjection`](#itemProjection) | Function: String | `(item) => {return item;}` | Projection function to map the items to a string value for search and display           |
-| [`selectOnTab`](#selectOnTab)       | Boolean          | `true`                     | Enable/Disable item selection on <kbd>TAB</kbd>                                         |
+| [`itemProjection`](#itemProjection) | Function: String | `(item) => {return item;}` | Projection function to map the items to a string value for search and display                            |
+| [`selectOnTab`](#selectOnTab)       | Boolean          | `true`                     | Enable/Disable item selection on <kbd>TAB</kbd>                                                          |
 
 _Remember you can always use lower-kebap-case for camelCase props like `min-input-length`_
 
