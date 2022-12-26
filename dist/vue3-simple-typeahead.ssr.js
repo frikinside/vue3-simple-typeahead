@@ -56,8 +56,8 @@ function _arrayLikeToArray(arr, len) {
 function _nonIterableRest() {
   throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }var script = /*#__PURE__*/vue.defineComponent({
-  name: 'Vue3SimpleTypeahead',
-  emits: ['onInput', 'onFocus', 'onBlur', 'selectItem'],
+  name: "Vue3SimpleTypeahead",
+  emits: ["onInput", "onFocus", "onBlur", "selectItem"],
   inheritAttrs: false,
   props: {
     id: {
@@ -65,7 +65,7 @@ function _nonIterableRest() {
     },
     placeholder: {
       type: String,
-      default: ''
+      default: ""
     },
     items: {
       type: Array,
@@ -97,6 +97,14 @@ function _nonIterableRest() {
     selectOnTab: {
       type: Boolean,
       default: true
+    },
+    extraItem: {
+      type: Object,
+      default: {}
+    },
+    disableFilter: {
+      type: Boolean,
+      default: false
     }
   },
   mounted: function mounted() {
@@ -107,7 +115,7 @@ function _nonIterableRest() {
   data: function data() {
     return {
       inputId: this.id || "simple_typeahead_".concat((Math.random() * 1000).toFixed()),
-      input: '',
+      input: "",
       isInputFocused: false,
       currentSelectionIndex: 0
     };
@@ -118,21 +126,21 @@ function _nonIterableRest() {
         this.currentSelectionIndex = (this.filteredItems.length || 1) - 1;
       }
 
-      this.$emit('onInput', {
+      this.$emit("onInput", {
         input: this.input,
         items: this.filteredItems
       });
     },
     onFocus: function onFocus() {
       this.isInputFocused = true;
-      this.$emit('onFocus', {
+      this.$emit("onFocus", {
         input: this.input,
         items: this.filteredItems
       });
     },
     onBlur: function onBlur() {
       this.isInputFocused = false;
-      this.$emit('onBlur', {
+      this.$emit("onBlur", {
         input: this.input,
         items: this.filteredItems
       });
@@ -187,17 +195,17 @@ function _nonIterableRest() {
       this.input = this.itemProjection(item);
       this.currentSelectionIndex = 0;
       this.$refs.inputRef.blur();
-      this.$emit('selectItem', item);
+      this.$emit("selectItem", item);
     },
     escapeRegExp: function escapeRegExp(string) {
-      return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     },
     boldMatchText: function boldMatchText(text) {
-      var regexp = new RegExp("(".concat(this.escapeRegExp(this.input), ")"), 'ig');
-      return text.replace(regexp, '<strong>$1</strong>');
+      var regexp = new RegExp("(".concat(this.escapeRegExp(this.input), ")"), "ig");
+      return text.replace(regexp, "<strong>$1</strong>");
     },
     clearInput: function clearInput() {
-      this.input = '';
+      this.input = "";
     },
     getInput: function getInput() {
       return this.$refs.inputRef;
@@ -218,10 +226,16 @@ function _nonIterableRest() {
     filteredItems: function filteredItems() {
       var _this2 = this;
 
-      var regexp = new RegExp(this.escapeRegExp(this.input), 'i');
-      return this.items.filter(function (item) {
+      var regexp = new RegExp(this.escapeRegExp(this.input), "i");
+      var items = this.disableFilter ? this.items : this.items.filter(function (item) {
         return _this2.itemProjection(item).match(regexp);
       });
+
+      if (Object.values(this.extraItem).length) {
+        items.push(this.extraItem);
+      }
+
+      return items;
     },
     isListVisible: function isListVisible() {
       return this.isInputFocused && this.input.length >= this.minInputLength && this.filteredItems.length > this.minItemLength;
@@ -230,7 +244,7 @@ function _nonIterableRest() {
       return this.isListVisible && this.currentSelectionIndex < this.filteredItems.length ? this.filteredItems[this.currentSelectionIndex] : undefined;
     }
   }
-});vue.pushScopeId("data-v-f81ca714");
+});vue.pushScopeId("data-v-1858e861");
 
 var _hoisted_1 = ["id"];
 var _hoisted_2 = ["id", "placeholder"];
@@ -284,10 +298,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return _ctx.selectCurrentSelectionTab && _ctx.selectCurrentSelectionTab.apply(_ctx, arguments);
     }, ["prevent"]), ["tab"]))],
     autocomplete: "off"
-  }, _ctx.$attrs), null, 16, _hoisted_2), [[vue.vModelText, _ctx.input]]), _ctx.isListVisible ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_3, [_ctx.$slots['list-header'] ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_4, [vue.renderSlot(_ctx.$slots, "list-header")])) : vue.createCommentVNode("", true), (vue.openBlock(true), vue.createElementBlock(vue.Fragment, null, vue.renderList(_ctx.filteredItems, function (item, index) {
+  }, _ctx.$attrs), null, 16, _hoisted_2), [[vue.vModelText, _ctx.input]]), _ctx.isListVisible ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_3, [_ctx.$slots.listHeader ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_4, [vue.renderSlot(_ctx.$slots, "list-header")])) : vue.createCommentVNode("", true), (vue.openBlock(true), vue.createElementBlock(vue.Fragment, null, vue.renderList(_ctx.filteredItems, function (item, index) {
     return vue.openBlock(), vue.createElementBlock("div", {
       class: vue.normalizeClass(["simple-typeahead-list-item", {
-        'simple-typeahead-list-item-active': _ctx.currentSelectionIndex == index
+        'simple-typeahead-list-item-active': _ctx.currentSelectionIndex === index
       }]),
       key: index,
       onMousedown: _cache[8] || (_cache[8] = vue.withModifiers(function () {}, ["prevent"])),
@@ -297,7 +311,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       onMouseenter: function onMouseenter($event) {
         return _ctx.currentSelectionIndex = index;
       }
-    }, [_ctx.$slots['list-item-text'] ? (vue.openBlock(), vue.createElementBlock("span", {
+    }, [_ctx.$slots.listItemText ? (vue.openBlock(), vue.createElementBlock("span", {
       key: 0,
       class: "simple-typeahead-list-item-text",
       "data-text": _ctx.itemProjection(item)
@@ -311,9 +325,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       "data-text": _ctx.itemProjection(item),
       innerHTML: _ctx.boldMatchText(_ctx.itemProjection(item))
     }, null, 8, _hoisted_7))], 42, _hoisted_5);
-  }), 128)), _ctx.$slots['list-footer'] ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_8, [vue.renderSlot(_ctx.$slots, "list-footer")])) : vue.createCommentVNode("", true)])) : vue.createCommentVNode("", true)], 8, _hoisted_1);
+  }), 128)), _ctx.$slots.listFooter ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_8, [vue.renderSlot(_ctx.$slots, "list-footer")])) : vue.createCommentVNode("", true)])) : vue.createCommentVNode("", true)], 8, _hoisted_1);
 }script.render = render;
-script.__scopeId = "data-v-f81ca714";// Import vue component
+script.__scopeId = "data-v-1858e861";// Import vue component
 // IIFE injects install function into component, allowing component
 // to be registered via Vue.use() as well as Vue.component(),
 
@@ -322,12 +336,12 @@ var component = /*#__PURE__*/(function () {
   var installable = script; // Attach install function executed by Vue.use()
 
   installable.install = function (app) {
-    app.component('Vue3SimpleTypeahead', installable);
+    app.component("Vue3SimpleTypeahead", installable);
   };
 
   return installable;
-})(); // It's possible to expose named exports when writing components that can
-// also be used as directives, etc. - eg. import { RollupDemoDirective } from 'rollup-demo';
+})(); // It"s possible to expose named exports when writing components that can
+// also be used as directives, etc. - eg. import { RollupDemoDirective } from "rollup-demo";
 // export const RollupDemoDirective = directive;
 var namedExports=/*#__PURE__*/Object.freeze({__proto__:null,'default': component});// only expose one global var, with named exports exposed as properties of
 // that global var (eg. plugin.namedExport)
@@ -337,5 +351,5 @@ Object.entries(namedExports).forEach(function (_ref) {
       exportName = _ref2[0],
       exported = _ref2[1];
 
-  if (exportName !== 'default') component[exportName] = exported;
+  if (exportName !== "default") component[exportName] = exported;
 });module.exports=component;

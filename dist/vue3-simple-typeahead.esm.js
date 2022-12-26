@@ -1,8 +1,8 @@
 import { defineComponent, pushScopeId, popScopeId, openBlock, createElementBlock, withDirectives, createElementVNode, mergeProps, withKeys, withModifiers, vModelText, renderSlot, createCommentVNode, Fragment, renderList, normalizeClass } from 'vue';
 
 var script = /*#__PURE__*/defineComponent({
-  name: 'Vue3SimpleTypeahead',
-  emits: ['onInput', 'onFocus', 'onBlur', 'selectItem'],
+  name: "Vue3SimpleTypeahead",
+  emits: ["onInput", "onFocus", "onBlur", "selectItem"],
   inheritAttrs: false,
   props: {
     id: {
@@ -10,7 +10,7 @@ var script = /*#__PURE__*/defineComponent({
     },
     placeholder: {
       type: String,
-      default: ''
+      default: ""
     },
     items: {
       type: Array,
@@ -44,6 +44,14 @@ var script = /*#__PURE__*/defineComponent({
     selectOnTab: {
       type: Boolean,
       default: true
+    },
+    extraItem: {
+      type: Object,
+      default: {}
+    },
+    disableFilter: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -56,7 +64,7 @@ var script = /*#__PURE__*/defineComponent({
   data() {
     return {
       inputId: this.id || `simple_typeahead_${(Math.random() * 1000).toFixed()}`,
-      input: '',
+      input: "",
       isInputFocused: false,
       currentSelectionIndex: 0
     };
@@ -68,7 +76,7 @@ var script = /*#__PURE__*/defineComponent({
         this.currentSelectionIndex = (this.filteredItems.length || 1) - 1;
       }
 
-      this.$emit('onInput', {
+      this.$emit("onInput", {
         input: this.input,
         items: this.filteredItems
       });
@@ -76,7 +84,7 @@ var script = /*#__PURE__*/defineComponent({
 
     onFocus() {
       this.isInputFocused = true;
-      this.$emit('onFocus', {
+      this.$emit("onFocus", {
         input: this.input,
         items: this.filteredItems
       });
@@ -84,7 +92,7 @@ var script = /*#__PURE__*/defineComponent({
 
     onBlur() {
       this.isInputFocused = false;
-      this.$emit('onBlur', {
+      this.$emit("onBlur", {
         input: this.input,
         items: this.filteredItems
       });
@@ -143,20 +151,20 @@ var script = /*#__PURE__*/defineComponent({
       this.input = this.itemProjection(item);
       this.currentSelectionIndex = 0;
       this.$refs.inputRef.blur();
-      this.$emit('selectItem', item);
+      this.$emit("selectItem", item);
     },
 
     escapeRegExp(string) {
-      return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     },
 
     boldMatchText(text) {
-      const regexp = new RegExp(`(${this.escapeRegExp(this.input)})`, 'ig');
-      return text.replace(regexp, '<strong>$1</strong>');
+      const regexp = new RegExp(`(${this.escapeRegExp(this.input)})`, "ig");
+      return text.replace(regexp, "<strong>$1</strong>");
     },
 
     clearInput() {
-      this.input = '';
+      this.input = "";
     },
 
     getInput() {
@@ -180,8 +188,14 @@ var script = /*#__PURE__*/defineComponent({
     },
 
     filteredItems() {
-      const regexp = new RegExp(this.escapeRegExp(this.input), 'i');
-      return this.items.filter(item => this.itemProjection(item).match(regexp));
+      const regexp = new RegExp(this.escapeRegExp(this.input), "i");
+      const items = this.disableFilter ? this.items : this.items.filter(item => this.itemProjection(item).match(regexp));
+
+      if (Object.values(this.extraItem).length) {
+        items.push(this.extraItem);
+      }
+
+      return items;
     },
 
     isListVisible() {
@@ -195,7 +209,7 @@ var script = /*#__PURE__*/defineComponent({
   }
 });
 
-pushScopeId("data-v-f81ca714");
+pushScopeId("data-v-1858e861");
 
 const _hoisted_1 = ["id"];
 const _hoisted_2 = ["id", "placeholder"];
@@ -233,16 +247,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onBlur: _cache[3] || (_cache[3] = (...args) => _ctx.onBlur && _ctx.onBlur(...args)),
     onKeydown: [_cache[4] || (_cache[4] = withKeys(withModifiers((...args) => _ctx.onArrowDown && _ctx.onArrowDown(...args), ["prevent"]), ["down"])), _cache[5] || (_cache[5] = withKeys(withModifiers((...args) => _ctx.onArrowUp && _ctx.onArrowUp(...args), ["prevent"]), ["up"])), _cache[6] || (_cache[6] = withKeys(withModifiers((...args) => _ctx.selectCurrentSelection && _ctx.selectCurrentSelection(...args), ["prevent"]), ["enter"])), _cache[7] || (_cache[7] = withKeys(withModifiers((...args) => _ctx.selectCurrentSelectionTab && _ctx.selectCurrentSelectionTab(...args), ["prevent"]), ["tab"]))],
     autocomplete: "off"
-  }, _ctx.$attrs), null, 16, _hoisted_2), [[vModelText, _ctx.input]]), _ctx.isListVisible ? (openBlock(), createElementBlock("div", _hoisted_3, [_ctx.$slots['list-header'] ? (openBlock(), createElementBlock("div", _hoisted_4, [renderSlot(_ctx.$slots, "list-header")])) : createCommentVNode("", true), (openBlock(true), createElementBlock(Fragment, null, renderList(_ctx.filteredItems, (item, index) => {
+  }, _ctx.$attrs), null, 16, _hoisted_2), [[vModelText, _ctx.input]]), _ctx.isListVisible ? (openBlock(), createElementBlock("div", _hoisted_3, [_ctx.$slots.listHeader ? (openBlock(), createElementBlock("div", _hoisted_4, [renderSlot(_ctx.$slots, "list-header")])) : createCommentVNode("", true), (openBlock(true), createElementBlock(Fragment, null, renderList(_ctx.filteredItems, (item, index) => {
     return openBlock(), createElementBlock("div", {
       class: normalizeClass(["simple-typeahead-list-item", {
-        'simple-typeahead-list-item-active': _ctx.currentSelectionIndex == index
+        'simple-typeahead-list-item-active': _ctx.currentSelectionIndex === index
       }]),
       key: index,
       onMousedown: _cache[8] || (_cache[8] = withModifiers(() => {}, ["prevent"])),
       onClick: $event => _ctx.selectItem(item),
       onMouseenter: $event => _ctx.currentSelectionIndex = index
-    }, [_ctx.$slots['list-item-text'] ? (openBlock(), createElementBlock("span", {
+    }, [_ctx.$slots.listItemText ? (openBlock(), createElementBlock("span", {
       key: 0,
       class: "simple-typeahead-list-item-text",
       "data-text": _ctx.itemProjection(item)
@@ -256,11 +270,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       "data-text": _ctx.itemProjection(item),
       innerHTML: _ctx.boldMatchText(_ctx.itemProjection(item))
     }, null, 8, _hoisted_7))], 42, _hoisted_5);
-  }), 128)), _ctx.$slots['list-footer'] ? (openBlock(), createElementBlock("div", _hoisted_8, [renderSlot(_ctx.$slots, "list-footer")])) : createCommentVNode("", true)])) : createCommentVNode("", true)], 8, _hoisted_1);
+  }), 128)), _ctx.$slots.listFooter ? (openBlock(), createElementBlock("div", _hoisted_8, [renderSlot(_ctx.$slots, "list-footer")])) : createCommentVNode("", true)])) : createCommentVNode("", true)], 8, _hoisted_1);
 }
 
 script.render = render;
-script.__scopeId = "data-v-f81ca714";
+script.__scopeId = "data-v-1858e861";
 
 // Import vue component
 // IIFE injects install function into component, allowing component
@@ -271,12 +285,12 @@ var entry_esm = /*#__PURE__*/(() => {
   const installable = script; // Attach install function executed by Vue.use()
 
   installable.install = app => {
-    app.component('Vue3SimpleTypeahead', installable);
+    app.component("Vue3SimpleTypeahead", installable);
   };
 
   return installable;
-})(); // It's possible to expose named exports when writing components that can
-// also be used as directives, etc. - eg. import { RollupDemoDirective } from 'rollup-demo';
+})(); // It"s possible to expose named exports when writing components that can
+// also be used as directives, etc. - eg. import { RollupDemoDirective } from "rollup-demo";
 // export const RollupDemoDirective = directive;
 
 export { entry_esm as default };

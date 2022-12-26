@@ -97,11 +97,11 @@ With custom slots template
 	@onFocus="onFocusEventHandler"
 	@onBlur="onBlurEventHandler"
 >
-	<template #list-header>
+	<template #listHeader>
 		LIST HEADER
 	</template>
-	<template #list-item-text="slot"><span v-html="slot.boldMatchText(slot.itemProjection(slot.item))"></span></template>
-	<template #list-footer>
+	<template #listItemText="slot"><span v-html="slot.boldMatchText(slot.itemProjection(slot.item))"></span></template>
+	<template #listFooter>
 		LIST FOOTER
 	</template>
 </vue3-simple-typeahead>
@@ -182,11 +182,11 @@ _Remember you can always use lower-kebap-case for camelCase props like `min-inpu
 
 | Slot                                 | Parent                                  | Props                                     | Description                                                     |
 | :----------------------------------- | :-------------------------------------- | :---------------------------------------- | :-------------------------------------------------------------- |
-| [`#list-header`](#list-header)       | `div.simple-typeahead-list-header`      |                                           | Slot to be show at top of the suggestion list                   |
-| [`#list-item-text`](#list-item-text) | `span.simple-typeahead-list-item-text'` | `item`, `itemProjection`, `boldMatchText` | Slot to customize the text of every item in the suggestion list |
-| [`#list-footer`](#list-footer)       | `div.simple-typeahead-list-footer`      |                                           | Slot to be show at bottom of the suggestion list                |
+| [`#listHeader`](#listHeader)       | `div.simple-typeahead-list-header`      |                                           | Slot to be show at top of the suggestion list                   |
+| [`#listItemText`](#listItemText) | `span.simple-typeahead-list-item-text'` | `item`, `itemProjection`, `boldMatchText` | Slot to customize the text of every item in the suggestion list |
+| [`#listFooter`](#listFooter)       | `div.simple-typeahead-list-footer`      |                                           | Slot to be show at bottom of the suggestion list                |
 
-#### Slot `#list-item-text` props
+#### Slot `#listItemTlext` props
 
 | Prop                                | Type             | Description                                                                                                   |
 | :---------------------------------- | :--------------- | :------------------------------------------------------------------------------------------------------------ |
