@@ -66,6 +66,12 @@
 					return item;
 				},
 			},
+      selectedItemProjection: {
+        type: Function,
+        default(item) {
+          return item;
+        },
+      },
 			minInputLength: {
 				type: Number,
 				default: 2,
@@ -156,7 +162,7 @@
 				}
 			},
 			selectItem(item) {
-				this.input = this.itemProjection(item);
+				this.input = this.selectedItemProjection(item);
 				this.currentSelectionIndex = 0;
 				this.$refs.inputRef.blur();
 				this.$emit('selectItem', item);

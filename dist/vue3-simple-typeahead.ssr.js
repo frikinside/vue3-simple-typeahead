@@ -71,6 +71,12 @@ function _nonIterableRest() {
         return item;
       }
     },
+    selectedItemProjection: {
+      type: Function,
+      default: function _default(item) {
+        return item;
+      }
+    },
     minInputLength: {
       type: Number,
       default: 2,
@@ -171,7 +177,7 @@ function _nonIterableRest() {
       }
     },
     selectItem: function selectItem(item) {
-      this.input = this.itemProjection(item);
+      this.input = this.selectedItemProjection(item);
       this.currentSelectionIndex = 0;
       this.$refs.inputRef.blur();
       this.$emit('selectItem', item);
@@ -294,7 +300,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }, null, 8, _hoisted_7))], 42, _hoisted_5);
   }), 128)), _ctx.$slots['list-footer'] ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_8, [vue.renderSlot(_ctx.$slots, "list-footer")])) : vue.createCommentVNode("", true)])) : vue.createCommentVNode("", true)], 8, _hoisted_1);
 }script.render = render;
-script.__scopeId = "data-v-952177fe";// Import vue component
+script.__scopeId = "data-v-00102676";// Import vue component
 
 // Default export is installable instance of component.
 // IIFE injects install function into component, allowing component

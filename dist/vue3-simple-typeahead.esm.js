@@ -25,6 +25,12 @@ var script = /*#__PURE__*/defineComponent({
         return item;
       }
     },
+    selectedItemProjection: {
+      type: Function,
+      default(item) {
+        return item;
+      }
+    },
     minInputLength: {
       type: Number,
       default: 2,
@@ -124,7 +130,7 @@ var script = /*#__PURE__*/defineComponent({
       }
     },
     selectItem(item) {
-      this.input = this.itemProjection(item);
+      this.input = this.selectedItemProjection(item);
       this.currentSelectionIndex = 0;
       this.$refs.inputRef.blur();
       this.$emit('selectItem', item);
@@ -242,7 +248,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 }
 
 script.render = render;
-script.__scopeId = "data-v-952177fe";
+script.__scopeId = "data-v-00102676";
 
 // Import vue component
 
