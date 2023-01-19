@@ -60,8 +60,7 @@ var script = /*#__PURE__*/defineComponent({
   methods: {
     onInput() {
       this.$emit('onFetch', {
-        input: this.input,
-        items: this.filteredItems
+        input: this.input
       });
       if (this.isListVisible && this.currentSelectionIndex >= this.filteredItems.length) {
         this.currentSelectionIndex = (this.filteredItems.length || 1) - 1;
@@ -243,7 +242,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 }
 
 script.render = render;
-script.__scopeId = "data-v-a1ce8498";
+script.__scopeId = "data-v-952177fe";
 
 // Import vue component
 

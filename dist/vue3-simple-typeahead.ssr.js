@@ -106,8 +106,7 @@ function _nonIterableRest() {
   methods: {
     onInput: function onInput() {
       this.$emit('onFetch', {
-        input: this.input,
-        items: this.filteredItems
+        input: this.input
       });
       if (this.isListVisible && this.currentSelectionIndex >= this.filteredItems.length) {
         this.currentSelectionIndex = (this.filteredItems.length || 1) - 1;
@@ -295,7 +294,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }, null, 8, _hoisted_7))], 42, _hoisted_5);
   }), 128)), _ctx.$slots['list-footer'] ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_8, [vue.renderSlot(_ctx.$slots, "list-footer")])) : vue.createCommentVNode("", true)])) : vue.createCommentVNode("", true)], 8, _hoisted_1);
 }script.render = render;
-script.__scopeId = "data-v-a1ce8498";// Import vue component
+script.__scopeId = "data-v-952177fe";// Import vue component
 
 // Default export is installable instance of component.
 // IIFE injects install function into component, allowing component

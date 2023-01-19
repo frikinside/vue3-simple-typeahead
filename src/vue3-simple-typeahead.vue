@@ -100,7 +100,7 @@
 		},
 		methods: {
 			onInput() {
-        this.$emit('onFetch', { input: this.input, items: this.filteredItems });
+        this.$emit('onFetch', { input: this.input });
 				if (this.isListVisible && this.currentSelectionIndex >= this.filteredItems.length) {
 					this.currentSelectionIndex = (this.filteredItems.length || 1) - 1;
 				}
