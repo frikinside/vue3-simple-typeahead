@@ -1,41 +1,36 @@
-'use strict';var vue=require('vue');function _slicedToArray(arr, i) {
+'use strict';var vue=require('vue');function _iterableToArrayLimit(arr, i) {
+  var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"];
+  if (null != _i) {
+    var _s,
+      _e,
+      _x,
+      _r,
+      _arr = [],
+      _n = !0,
+      _d = !1;
+    try {
+      if (_x = (_i = _i.call(arr)).next, 0 === i) {
+        if (Object(_i) !== _i) return;
+        _n = !1;
+      } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0);
+    } catch (err) {
+      _d = !0, _e = err;
+    } finally {
+      try {
+        if (!_n && null != _i.return && (_r = _i.return(), Object(_r) !== _r)) return;
+      } finally {
+        if (_d) throw _e;
+      }
+    }
+    return _arr;
+  }
+}
+function _slicedToArray(arr, i) {
   return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
 }
-
 function _arrayWithHoles(arr) {
   if (Array.isArray(arr)) return arr;
 }
-
-function _iterableToArrayLimit(arr, i) {
-  var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
-
-  if (_i == null) return;
-  var _arr = [];
-  var _n = true;
-  var _d = false;
-
-  var _s, _e;
-
-  try {
-    for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
-      _arr.push(_s.value);
-
-      if (i && _arr.length === i) break;
-    }
-  } catch (err) {
-    _d = true;
-    _e = err;
-  } finally {
-    try {
-      if (!_n && _i["return"] != null) _i["return"]();
-    } finally {
-      if (_d) throw _e;
-    }
-  }
-
-  return _arr;
-}
-
 function _unsupportedIterableToArray(o, minLen) {
   if (!o) return;
   if (typeof o === "string") return _arrayLikeToArray(o, minLen);
@@ -44,20 +39,16 @@ function _unsupportedIterableToArray(o, minLen) {
   if (n === "Map" || n === "Set") return Array.from(o);
   if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
 }
-
 function _arrayLikeToArray(arr, len) {
   if (len == null || len > arr.length) len = arr.length;
-
   for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
-
   return arr2;
 }
-
 function _nonIterableRest() {
   throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }var script = /*#__PURE__*/vue.defineComponent({
   name: 'Vue3SimpleTypeahead',
-  emits: ['onInput', 'onFocus', 'onBlur', 'selectItem'],
+  emits: ['onFetch', 'onInput', 'onFocus', 'onBlur', 'selectItem'],
   inheritAttrs: false,
   props: {
     id: {
@@ -114,10 +105,13 @@ function _nonIterableRest() {
   },
   methods: {
     onInput: function onInput() {
+      this.$emit('onFetch', {
+        input: this.input,
+        items: this.filteredItems
+      });
       if (this.isListVisible && this.currentSelectionIndex >= this.filteredItems.length) {
         this.currentSelectionIndex = (this.filteredItems.length || 1) - 1;
       }
-
       this.$emit('onInput', {
         input: this.input,
         items: this.filteredItems
@@ -141,32 +135,26 @@ function _nonIterableRest() {
       if (this.isListVisible && this.currentSelectionIndex < this.filteredItems.length - 1) {
         this.currentSelectionIndex++;
       }
-
       this.scrollSelectionIntoView();
     },
     onArrowUp: function onArrowUp($event) {
       if (this.isListVisible && this.currentSelectionIndex > 0) {
         this.currentSelectionIndex--;
       }
-
       this.scrollSelectionIntoView();
     },
     scrollSelectionIntoView: function scrollSelectionIntoView() {
       var _this = this;
-
       setTimeout(function () {
         var list_node = document.querySelector("#".concat(_this.wrapperId, " .simple-typeahead-list"));
         var active_node = document.querySelector("#".concat(_this.wrapperId, " .simple-typeahead-list-item.simple-typeahead-list-item-active"));
-
         if (!(active_node.offsetTop >= list_node.scrollTop && active_node.offsetTop + active_node.offsetHeight < list_node.scrollTop + list_node.offsetHeight)) {
           var scroll_to = 0;
-
           if (active_node.offsetTop > list_node.scrollTop) {
             scroll_to = active_node.offsetTop + active_node.offsetHeight - list_node.offsetHeight;
           } else if (active_node.offsetTop < list_node.scrollTop) {
             scroll_to = active_node.offsetTop;
           }
-
           list_node.scrollTo(0, scroll_to);
         }
       });
@@ -217,7 +205,6 @@ function _nonIterableRest() {
     },
     filteredItems: function filteredItems() {
       var _this2 = this;
-
       var regexp = new RegExp(this.escapeRegExp(this.input), 'i');
       return this.items.filter(function (item) {
         return _this2.itemProjection(item).match(regexp);
@@ -230,9 +217,7 @@ function _nonIterableRest() {
       return this.isListVisible && this.currentSelectionIndex < this.filteredItems.length ? this.filteredItems[this.currentSelectionIndex] : undefined;
     }
   }
-});vue.pushScopeId("data-v-f81ca714");
-
-var _hoisted_1 = ["id"];
+});var _hoisted_1 = ["id"];
 var _hoisted_2 = ["id", "placeholder"];
 var _hoisted_3 = {
   key: 0,
@@ -249,9 +234,6 @@ var _hoisted_8 = {
   key: 1,
   class: "simple-typeahead-list-footer"
 };
-
-vue.popScopeId();
-
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return vue.openBlock(), vue.createElementBlock("div", {
     id: _ctx.wrapperId,
@@ -313,29 +295,31 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }, null, 8, _hoisted_7))], 42, _hoisted_5);
   }), 128)), _ctx.$slots['list-footer'] ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_8, [vue.renderSlot(_ctx.$slots, "list-footer")])) : vue.createCommentVNode("", true)])) : vue.createCommentVNode("", true)], 8, _hoisted_1);
 }script.render = render;
-script.__scopeId = "data-v-f81ca714";// Import vue component
+script.__scopeId = "data-v-a1ce8498";// Import vue component
+
+// Default export is installable instance of component.
 // IIFE injects install function into component, allowing component
 // to be registered via Vue.use() as well as Vue.component(),
-
 var component = /*#__PURE__*/(function () {
   // Get component instance
-  var installable = script; // Attach install function executed by Vue.use()
+  var installable = script;
 
+  // Attach install function executed by Vue.use()
   installable.install = function (app) {
     app.component('Vue3SimpleTypeahead', installable);
   };
-
   return installable;
-})(); // It's possible to expose named exports when writing components that can
+})();
+
+// It's possible to expose named exports when writing components that can
 // also be used as directives, etc. - eg. import { RollupDemoDirective } from 'rollup-demo';
 // export const RollupDemoDirective = directive;
-var namedExports=/*#__PURE__*/Object.freeze({__proto__:null,'default': component});// only expose one global var, with named exports exposed as properties of
+var namedExports=/*#__PURE__*/Object.freeze({__proto__:null,'default':component});// Attach named exports directly to component. IIFE/CJS will
+// only expose one global var, with named exports exposed as properties of
 // that global var (eg. plugin.namedExport)
-
 Object.entries(namedExports).forEach(function (_ref) {
   var _ref2 = _slicedToArray(_ref, 2),
-      exportName = _ref2[0],
-      exported = _ref2[1];
-
+    exportName = _ref2[0],
+    exported = _ref2[1];
   if (exportName !== 'default') component[exportName] = exported;
 });module.exports=component;

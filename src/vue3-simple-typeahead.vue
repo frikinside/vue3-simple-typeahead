@@ -43,7 +43,7 @@
 
 	export default /*#__PURE__*/ defineComponent({
 		name: 'Vue3SimpleTypeahead',
-		emits: ['onInput', 'onFocus', 'onBlur', 'selectItem'],
+		emits: ['onFetch', 'onInput', 'onFocus', 'onBlur', 'selectItem'],
 		inheritAttrs: false,
 		props: {
 			id: {
@@ -100,6 +100,7 @@
 		},
 		methods: {
 			onInput() {
+        this.$emit('onFetch', { input: this.input, items: this.filteredItems });
 				if (this.isListVisible && this.currentSelectionIndex >= this.filteredItems.length) {
 					this.currentSelectionIndex = (this.filteredItems.length || 1) - 1;
 				}
