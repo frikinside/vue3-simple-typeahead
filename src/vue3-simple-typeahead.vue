@@ -43,7 +43,7 @@
 
 	export default /*#__PURE__*/ defineComponent({
 		name: 'Vue3SimpleTypeahead',
-		emits: ['onInput', 'onFocus', 'onBlur', 'selectItem'],
+		emits: ['onFetch', 'onInput', 'onFocus', 'onBlur', 'selectItem'],
 		inheritAttrs: false,
 		props: {
 			id: {
@@ -66,6 +66,12 @@
 					return item;
 				},
 			},
+      selectedItemProjection: {
+        type: Function,
+        default(item) {
+          return item;
+        },
+      },
 			minInputLength: {
 				type: Number,
 				default: 2,
@@ -100,6 +106,7 @@
 		},
 		methods: {
 			onInput() {
+        this.$emit('onFetch', { input: this.input });
 				if (this.isListVisible && this.currentSelectionIndex >= this.filteredItems.length) {
 					this.currentSelectionIndex = (this.filteredItems.length || 1) - 1;
 				}
@@ -155,7 +162,7 @@
 				}
 			},
 			selectItem(item) {
-				this.input = this.itemProjection(item);
+				this.input = this.selectedItemProjection(item);
 				this.currentSelectionIndex = 0;
 				this.$refs.inputRef.blur();
 				this.$emit('selectItem', item);
