@@ -57,6 +57,14 @@
 				type: Array,
 				required: true,
 			},
+      alwaysShowAll: {
+        type: Boolean,
+        default: false,
+      },
+      showAllOnEmpty: {
+        type: Boolean,
+        default: false,
+      },
 			defaultItem: {
 				default: null,
 			},
@@ -186,11 +194,17 @@
 			wrapperId() {
 				return `${this.inputId}_wrapper`;
 			},
-			filteredItems() {
-				const regexp = new RegExp(this.escapeRegExp(this.input), 'i');
+      filteredItems() {
+        if (this.alwaysShowAll) return this.items;
 
-				return this.items.filter((item) => this.itemProjection(item).match(regexp));
-			},
+        const regexp = new RegExp(this.escapeRegExp(this.input), 'i');
+
+        const matchedItems = this.items.filter((item) => this.itemProjection(item).match(regexp));
+
+        if (matchedItems.length === 0 && this.showAllOnEmpty) return this.items;
+
+        return matchedItems;
+      },
 			isListVisible() {
 				return this.isInputFocused && this.input.length >= this.minInputLength && this.filteredItems.length > this.minItemLength;
 			},
