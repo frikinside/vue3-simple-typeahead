@@ -195,15 +195,15 @@
 				return `${this.inputId}_wrapper`;
 			},
       filteredItems() {
-        if (this.alwaysShowAll) return this.items;
+				if (this.alwaysShowAll) return this.items;
 
-        const regexp = new RegExp(this.escapeRegExp(this.input), 'i');
+				const regexp = new RegExp(this.escapeRegExp(this.input), 'i');
 
-        const matchedItems = this.items.filter((item) => this.itemProjection(item).match(regexp));
+				const matchedItems = this.items.filter((item) => this.itemProjection(item).match(regexp));
 
-        if (matchedItems.length === 0 && this.showAllOnEmpty) return this.items;
+				if (matchedItems.length === 0 && this.showAllOnEmpty) return this.items;
 
-        return matchedItems;
+				return matchedItems;
       },
 			isListVisible() {
 				return this.isInputFocused && this.input.length >= this.minInputLength && this.filteredItems.length > this.minItemLength;
