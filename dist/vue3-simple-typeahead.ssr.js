@@ -80,6 +80,12 @@ function _nonIterableRest() {
         return item;
       }
     },
+    postFilter: {
+      type: Function,
+      default: function _default(list) {
+        return list;
+      }
+    },
     minInputLength: {
       type: Number,
       default: 2,
@@ -219,9 +225,10 @@ function _nonIterableRest() {
       var _this2 = this;
 
       var regexp = new RegExp(this.escapeRegExp(this.input), 'i');
-      return this.items.filter(function (item) {
+      var filtered = this.items.filter(function (item) {
         return _this2.itemProjection(item).match(regexp);
       });
+      return this.postFilter(filtered);
     },
     isListVisible: function isListVisible() {
       return this.isInputFocused && this.input.length >= this.minInputLength && this.filteredItems.length > this.minItemLength;
@@ -230,7 +237,7 @@ function _nonIterableRest() {
       return this.isListVisible && this.currentSelectionIndex < this.filteredItems.length ? this.filteredItems[this.currentSelectionIndex] : undefined;
     }
   }
-});vue.pushScopeId("data-v-f81ca714");
+});vue.pushScopeId("data-v-48b75f00");
 
 var _hoisted_1 = ["id"];
 var _hoisted_2 = ["id", "placeholder"];
@@ -313,7 +320,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }, null, 8, _hoisted_7))], 42, _hoisted_5);
   }), 128)), _ctx.$slots['list-footer'] ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_8, [vue.renderSlot(_ctx.$slots, "list-footer")])) : vue.createCommentVNode("", true)])) : vue.createCommentVNode("", true)], 8, _hoisted_1);
 }script.render = render;
-script.__scopeId = "data-v-f81ca714";// Import vue component
+script.__scopeId = "data-v-48b75f00";// Import vue component
 // IIFE injects install function into component, allowing component
 // to be registered via Vue.use() as well as Vue.component(),
 

@@ -27,6 +27,14 @@ var script = /*#__PURE__*/defineComponent({
       }
 
     },
+    postFilter: {
+      type: Function,
+
+      default(list) {
+        return list;
+      }
+
+    },
     minInputLength: {
       type: Number,
       default: 2,
@@ -181,7 +189,8 @@ var script = /*#__PURE__*/defineComponent({
 
     filteredItems() {
       const regexp = new RegExp(this.escapeRegExp(this.input), 'i');
-      return this.items.filter(item => this.itemProjection(item).match(regexp));
+      const filtered = this.items.filter(item => this.itemProjection(item).match(regexp));
+      return this.postFilter(filtered);
     },
 
     isListVisible() {
@@ -195,7 +204,7 @@ var script = /*#__PURE__*/defineComponent({
   }
 });
 
-pushScopeId("data-v-f81ca714");
+pushScopeId("data-v-48b75f00");
 
 const _hoisted_1 = ["id"];
 const _hoisted_2 = ["id", "placeholder"];
@@ -260,7 +269,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 }
 
 script.render = render;
-script.__scopeId = "data-v-f81ca714";
+script.__scopeId = "data-v-48b75f00";
 
 // Import vue component
 // IIFE injects install function into component, allowing component

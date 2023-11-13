@@ -66,6 +66,12 @@
 					return item;
 				},
 			},
+			postFilter: {
+				type: Function,
+				default(list) {
+					return list;
+				}
+			},
 			minInputLength: {
 				type: Number,
 				default: 2,
@@ -188,8 +194,8 @@
 			},
 			filteredItems() {
 				const regexp = new RegExp(this.escapeRegExp(this.input), 'i');
-
-				return this.items.filter((item) => this.itemProjection(item).match(regexp));
+				const filtered = this.items.filter((item) => this.itemProjection(item).match(regexp));
+				return this.postFilter(filtered);
 			},
 			isListVisible() {
 				return this.isInputFocused && this.input.length >= this.minInputLength && this.filteredItems.length > this.minItemLength;
